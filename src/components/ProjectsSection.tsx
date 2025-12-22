@@ -75,10 +75,10 @@ export function ProjectsSection() {
                       setSelectedProject(project);
                       setSelectedImageIndex(0);
                     }}
-                    className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                    className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
                   >
                     {/* Project Image */}
-                    <div className="relative h-64 overflow-hidden bg-muted">
+                    <div className="relative h-80 overflow-hidden bg-muted flex-shrink-0">
                       <img
                         src={project.image}
                         alt={getProjectTitle(project)}
@@ -88,12 +88,14 @@ export function ProjectsSection() {
                     </div>
 
                     {/* Project Info */}
-                    <div className="p-6">
-                      <span className="text-xs font-semibold text-accent uppercase tracking-wide">
-                        {project.category}
-                      </span>
-                      <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
-                      <p className="text-foreground/70 mb-4 line-clamp-2">{getProjectDescription(project)}</p>
+                    <div className="p-6 flex-grow flex flex-col justify-between">
+                      <div>
+                        <span className="text-xs font-semibold text-accent uppercase tracking-wide">
+                          {project.category}
+                        </span>
+                        <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
+                        <p className="text-foreground/70 mb-4">{getProjectDescription(project)}</p>
+                      </div>
                       <div className="flex items-center text-sm text-muted-foreground">
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
@@ -134,10 +136,10 @@ export function ProjectsSection() {
                       setSelectedProject(project);
                       setSelectedImageIndex(0);
                     }}
-                    className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative"
+                    className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative flex flex-col h-full"
                   >
                     {/* Project Image */}
-                    <div className="relative h-64 overflow-hidden bg-muted">
+                    <div className="relative h-80 overflow-hidden bg-muted flex-shrink-0">
                       <img
                         src={project.image}
                         alt={getProjectTitle(project)}
@@ -151,12 +153,14 @@ export function ProjectsSection() {
                     </div>
 
                     {/* Project Info */}
-                    <div className="p-6">
-                      <span className="text-xs font-semibold text-accent uppercase tracking-wide">
-                        {project.category}
-                      </span>
-                      <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
-                      <p className="text-foreground/70 mb-4 line-clamp-2">{getProjectDescription(project)}</p>
+                    <div className="p-6 flex-grow flex flex-col justify-between">
+                      <div>
+                        <span className="text-xs font-semibold text-accent uppercase tracking-wide">
+                          {project.category}
+                        </span>
+                        <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
+                        <p className="text-foreground/70 mb-4">{getProjectDescription(project)}</p>
+                      </div>
                       <div className="flex items-center text-sm text-muted-foreground">
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path
@@ -190,17 +194,17 @@ export function ProjectsSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-card rounded-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+              className="bg-card rounded-lg max-w-3xl w-full my-8"
             >
               {/* Close Button */}
-              <div className="sticky top-0 flex justify-end p-4 bg-card border-b border-border">
+              <div className="sticky top-0 flex justify-end p-4 bg-card border-b border-border z-10">
                 <button
                   onClick={() => setSelectedProject(null)}
                   className="p-2 hover:bg-secondary rounded-lg transition-colors"
@@ -209,62 +213,65 @@ export function ProjectsSection() {
                 </button>
               </div>
 
-              {/* Gallery */}
-              <div className="relative bg-muted h-96">
-                <img
-                  src={selectedProject.gallery[selectedImageIndex]}
-                  alt={getProjectTitle(selectedProject)}
-                  className="w-full h-full object-cover"
-                />
-                {selectedProject.gallery.length > 1 && (
-                  <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                    {selectedProject.gallery.map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setSelectedImageIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-all ${
-                          index === selectedImageIndex ? 'bg-white w-8' : 'bg-white/50'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Project Details */}
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-semibold text-accent uppercase tracking-wide">
-                    {selectedProject.category}
-                  </span>
-                  <span className="text-sm font-semibold text-accent uppercase tracking-wide">
-                    {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
-                  </span>
-                </div>
-                <h2 className="text-3xl font-bold mb-4">{getProjectTitle(selectedProject)}</h2>
-                <p className="text-foreground/70 mb-6 leading-relaxed">{getProjectDescription(selectedProject)}</p>
-
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
-                      {t.projects.location}
-                    </h3>
-                    <p className="text-lg">{getProjectLocation(selectedProject)}</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
-                      {t.projects.category}
-                    </h3>
-                    <p className="text-lg">{selectedProject.category}</p>
-                  </div>
+              {/* Scrollable Content */}
+              <div className="max-h-[calc(90vh-80px)] overflow-y-auto">
+                {/* Gallery */}
+                <div className="relative bg-muted h-96">
+                  <img
+                    src={selectedProject.gallery[selectedImageIndex]}
+                    alt={getProjectTitle(selectedProject)}
+                    className="w-full h-full object-cover"
+                  />
+                  {selectedProject.gallery.length > 1 && (
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                      {selectedProject.gallery.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setSelectedImageIndex(index)}
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            index === selectedImageIndex ? 'bg-white w-8' : 'bg-white/50'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
 
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors"
-                >
-                  {t.projects.close}
-                </button>
+                {/* Project Details */}
+                <div className="p-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-sm font-semibold text-accent uppercase tracking-wide">
+                      {selectedProject.category}
+                    </span>
+                    <span className="text-sm font-semibold text-accent uppercase tracking-wide">
+                      {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
+                    </span>
+                  </div>
+                  <h2 className="text-3xl font-bold mb-4">{getProjectTitle(selectedProject)}</h2>
+                  <p className="text-foreground/70 mb-6 leading-relaxed">{getProjectDescription(selectedProject)}</p>
+
+                  <div className="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                      <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
+                        {t.projects.location}
+                      </h3>
+                      <p className="text-lg">{getProjectLocation(selectedProject)}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
+                        {t.projects.category}
+                      </h3>
+                      <p className="text-lg">{selectedProject.category}</p>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors"
+                  >
+                    {t.projects.close}
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
