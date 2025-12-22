@@ -28,14 +28,13 @@ export function HeroSection() {
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center "
         style={{
-          backgroundImage: 'url(/images/hero-construction.jpg)',
-          backgroundPosition: 'center',
+          backgroundImage: 'url(/images/hero-construction.png)',
         }}
       >
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       {/* Subtle background text - company name */}

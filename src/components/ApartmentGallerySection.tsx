@@ -98,23 +98,6 @@ export function ApartmentGallerySection() {
                   alt={`Sample apartment ${index + 1}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <svg
-                      className="w-8 h-8 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"
-                      />
-                    </svg>
-                  </div>
-                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -176,26 +159,6 @@ export function ApartmentGallerySection() {
                 {selectedImageIndex + 1} / {apartmentImages.length}
               </div>
 
-              {/* Thumbnail Navigation */}
-              <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 flex gap-2 overflow-x-auto max-w-xs px-4">
-                {apartmentImages.map((image, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedImageIndex(index)}
-                    className={`flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border-2 transition-all ${
-                      index === selectedImageIndex
-                        ? 'border-accent scale-110'
-                        : 'border-white/30 hover:border-white/60'
-                    }`}
-                  >
-                    <img
-                      src={image}
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
             </motion.div>
           </motion.div>
         )}
