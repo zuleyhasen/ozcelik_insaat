@@ -1,6 +1,9 @@
-import { motion, easeOut } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export function HeroSection() {
+  const { t } = useLanguage();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -59,28 +62,28 @@ export function HeroSection() {
           variants={itemVariants}
           className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
         >
-          Güvenle İnşa Ediyoruz
+          {t.hero.headline}
         </motion.h1>
 
         <motion.p
           variants={itemVariants}
           className="text-lg md:text-xl max-w-2xl mx-auto mb-8 text-gray-100 font-light"
         >
-          Yerel tecrübemiz ve profesyonel ekibimizle sağlam yapılar inşa ediyoruz.
+          {t.hero.subheading}
         </motion.p>
 
-        <motion.div variants={itemVariants} className="flex gap-4 justify-center">
+        <motion.div variants={itemVariants} className="flex gap-4 justify-center flex-wrap">
           <a
             href="#projects"
             className="px-8 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors duration-300"
           >
-            Projelerimizi Keşfedin
+            {t.hero.cta1}
           </a>
           <a
             href="#contact"
             className="px-8 py-3 border-2 border-white text-white rounded-lg font-semibold hover:bg-white/10 transition-colors duration-300"
           >
-            İletişime Geçin
+            {t.hero.cta2}
           </a>
         </motion.div>
       </motion.div>

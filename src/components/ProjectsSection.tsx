@@ -1,49 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-
-interface Project {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  location: string;
-  image: string;
-  gallery: string[];
-}
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: 'Konut Projesi - Merkez',
-    category: 'Konut',
-    description: 'Modern mimariye sahip, 4 katlı konut binası. Kaliteli malzeme ve profesyonel işçilikle tamamlanmıştır.',
-    location: 'Merkez, Şehir',
-    image: '/images/project-residential.jpg',
-    gallery: ['/images/project-residential.jpg', '/images/materials-detail.jpg'],
-  },
-  {
-    id: 2,
-    title: 'Ticari Bina - İş Merkezi',
-    category: 'Ticari',
-    description: 'Çok katlı ticari bina projesi. Modern tasarım ve yapısal mükemmellik ile uygulanmıştır.',
-    location: 'İş Merkezi, Şehir',
-    image: '/images/project-commercial.jpg',
-    gallery: ['/images/project-commercial.jpg', '/images/materials-detail.jpg'],
-  },
-  {
-    id: 3,
-    title: 'Konut Kompleksi',
-    category: 'Konut',
-    description: 'Geniş alanı kapsayan konut kompleksi projesi. Peyzaj tasarımı ve altyapı çalışmaları dahildir.',
-    location: 'Batı Mahallesi, Şehir',
-    image: '/images/project-residential.jpg',
-    gallery: ['/images/project-residential.jpg', '/images/materials-detail.jpg'],
-  },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
+import { projects } from '@/data/projects';
 
 export function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const { language, t } = useLanguage();
+  const [selectedProject, setSelectedProject] = useState<(typeof projects)[0] | null>(null);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   const containerVariants = {
@@ -65,6 +28,18 @@ export function ProjectsSection() {
     },
   };
 
+  const getProjectTitle = (project: (typeof projects)[0]) => {
+    return language === 'tr' ? project.titleTr : project.titleEn;
+  };
+
+  const getProjectLocation = (project: (typeof projects)[0]) => {
+    return language === 'tr' ? project.locationTr : project.locationEn;
+  };
+
+  const getProjectDescription = (project: (typeof projects)[0]) => {
+    return language === 'tr' ? project.descriptionTr : project.descriptionEn;
+  };
+
   return (
     <section id="projects" className="py-20 md:py-32 bg-secondary/30">
       <div className="container mx-auto px-4">
@@ -77,56 +52,132 @@ export function ProjectsSection() {
           {/* Section Header */}
           <motion.div variants={itemVariants} className="mb-16">
             <div className="h-1 w-16 bg-accent rounded-full mb-4" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Projelerimiz</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t.projects.title}</h2>
             <p className="text-lg text-muted-foreground">
-              Tamamlanan ve devam eden projelerimiz
+              {t.projects.subtitle}
             </p>
           </motion.div>
 
-          {/* Projects Grid */}
-          <motion.div
-            variants={containerVariants}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
-            {projects.map((project) => (
-              <motion.div
-                key={project.id}
-                variants={itemVariants}
-                onClick={() => {
-                  setSelectedProject(project);
-                  setSelectedImageIndex(0);
-                }}
-                className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Project Image */}
-                <div className="relative h-64 overflow-hidden bg-muted">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
-                </div>
+          {/* Completed Projects */}
+          <motion.div variants={itemVariants} className="mb-16">
+            <h3 className="text-2xl font-bold mb-8 text-foreground">{t.projects.completed}</h3>
+            <motion.div
+              variants={containerVariants}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {projects
+                .filter((p) => p.status === 'completed')
+                .map((project) => (
+                  <motion.div
+                    key={project.id}
+                    variants={itemVariants}
+                    onClick={() => {
+                      setSelectedProject(project);
+                      setSelectedImageIndex(0);
+                    }}
+                    className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+                  >
+                    {/* Project Image */}
+                    <div className="relative h-64 overflow-hidden bg-muted">
+                      <img
+                        src={project.image}
+                        alt={getProjectTitle(project)}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+                    </div>
 
-                {/* Project Info */}
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-semibold text-accent uppercase tracking-wide">
-                      {project.category}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-foreground/70 mb-4 line-clamp-2">{project.description}</p>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    {project.location}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                    {/* Project Info */}
+                    <div className="p-6">
+                      <span className="text-xs font-semibold text-accent uppercase tracking-wide">
+                        {project.category}
+                      </span>
+                      <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
+                      <p className="text-foreground/70 mb-4 line-clamp-2">{getProjectDescription(project)}</p>
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        {getProjectLocation(project)}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Ongoing Projects */}
+          <motion.div variants={itemVariants}>
+            <h3 className="text-2xl font-bold mb-8 text-foreground">{t.projects.ongoing}</h3>
+            <motion.div
+              variants={containerVariants}
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            >
+              {projects
+                .filter((p) => p.status === 'ongoing')
+                .map((project) => (
+                  <motion.div
+                    key={project.id}
+                    variants={itemVariants}
+                    onClick={() => {
+                      setSelectedProject(project);
+                      setSelectedImageIndex(0);
+                    }}
+                    className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative"
+                  >
+                    {/* Project Image */}
+                    <div className="relative h-64 overflow-hidden bg-muted">
+                      <img
+                        src={project.image}
+                        alt={getProjectTitle(project)}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+                      {/* Subtle ongoing indicator */}
+                      <div className="absolute top-4 right-4 bg-accent/90 text-accent-foreground px-3 py-1 rounded-full text-xs font-semibold">
+                        {t.projects.ongoing}
+                      </div>
+                    </div>
+
+                    {/* Project Info */}
+                    <div className="p-6">
+                      <span className="text-xs font-semibold text-accent uppercase tracking-wide">
+                        {project.category}
+                      </span>
+                      <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
+                      <p className="text-foreground/70 mb-4 line-clamp-2">{getProjectDescription(project)}</p>
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                        {getProjectLocation(project)}
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
@@ -162,7 +213,7 @@ export function ProjectsSection() {
               <div className="relative bg-muted h-96">
                 <img
                   src={selectedProject.gallery[selectedImageIndex]}
-                  alt={selectedProject.title}
+                  alt={getProjectTitle(selectedProject)}
                   className="w-full h-full object-cover"
                 />
                 {selectedProject.gallery.length > 1 && (
@@ -186,17 +237,24 @@ export function ProjectsSection() {
                   <span className="text-sm font-semibold text-accent uppercase tracking-wide">
                     {selectedProject.category}
                   </span>
+                  <span className="text-sm font-semibold text-accent uppercase tracking-wide">
+                    {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
+                  </span>
                 </div>
-                <h2 className="text-3xl font-bold mb-4">{selectedProject.title}</h2>
-                <p className="text-foreground/70 mb-6 leading-relaxed">{selectedProject.description}</p>
-                
+                <h2 className="text-3xl font-bold mb-4">{getProjectTitle(selectedProject)}</h2>
+                <p className="text-foreground/70 mb-6 leading-relaxed">{getProjectDescription(selectedProject)}</p>
+
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">Konum</h3>
-                    <p className="text-lg">{selectedProject.location}</p>
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
+                      {t.projects.location}
+                    </h3>
+                    <p className="text-lg">{getProjectLocation(selectedProject)}</p>
                   </div>
                   <div>
-                    <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">Kategori</h3>
+                    <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
+                      {t.projects.category}
+                    </h3>
                     <p className="text-lg">{selectedProject.category}</p>
                   </div>
                 </div>
@@ -205,7 +263,7 @@ export function ProjectsSection() {
                   onClick={() => setSelectedProject(null)}
                   className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors"
                 >
-                  Kapat
+                  {t.projects.close}
                 </button>
               </div>
             </motion.div>

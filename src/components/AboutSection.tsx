@@ -1,7 +1,10 @@
 import { motion } from 'framer-motion';
 import { BuildingIcon, SafetyIcon, QualityIcon } from './ConstructionIcons';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export function AboutSection() {
+  const { t } = useLanguage();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -21,26 +24,8 @@ export function AboutSection() {
     },
   };
 
-  const features = [
-    {
-      icon: BuildingIcon,
-      title: 'Sağlam Yapılar',
-      description: 'Kaliteli malzeme ve profesyonel işçilikle uzun ömürlü yapılar inşa ediyoruz.',
-    },
-    {
-      icon: SafetyIcon,
-      title: 'Güvenlik Önceliği',
-      description: 'Her projede en yüksek güvenlik standartlarını uygulamak bizim sorumluluğumuz.',
-    },
-    {
-      icon: QualityIcon,
-      title: 'Zamanında Teslim',
-      description: 'Planlama ve koordinasyon ile tüm projelerimizi zamanında tamamlıyoruz.',
-    },
-  ];
-
   return (
-    <section className="py-20 md:py-32 bg-background">
+    <section id="about" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4">
         <motion.div
           className="max-w-4xl mx-auto"
@@ -52,22 +37,19 @@ export function AboutSection() {
           {/* Section Header */}
           <motion.div variants={itemVariants} className="mb-12">
             <div className="h-1 w-16 bg-accent rounded-full mb-4" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Hakkımızda</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t.about.title}</h2>
             <p className="text-lg text-muted-foreground">
-              Yerel ölçekte faaliyet gösteren, işini titizlikle yapan bir inşaat firması
+              {t.about.subtitle}
             </p>
           </motion.div>
 
           {/* Main text */}
           <motion.div variants={itemVariants} className="mb-12">
             <p className="text-lg leading-relaxed text-foreground/80 mb-6">
-              Özçelik İnşaat, yerel ölçekte faaliyet gösteren, işini titizlikle yapan bir inşaat firmasıdır.
-              Projelerimizde kalite, güvenlik ve zamanında teslim prensiplerini ön planda tutarız. Küçük ama
-              deneyimli ekibimizle, her projeye aynı ciddiyetle yaklaşırız.
+              {t.about.description1}
             </p>
             <p className="text-lg leading-relaxed text-foreground/80">
-              Amacımız büyük söylemler değil, sağlam ve uzun ömürlü yapılar ortaya koymaktır. Her bir projemiz,
-              müşteri memnuniyeti ve mühendislik mükemmelliğinin bir kanıtıdır.
+              {t.about.description2}
             </p>
           </motion.div>
 
@@ -76,8 +58,9 @@ export function AboutSection() {
             variants={containerVariants}
             className="grid md:grid-cols-3 gap-8"
           >
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
+            {t.about.features.map((feature, index) => {
+              const icons = [BuildingIcon, SafetyIcon, QualityIcon];
+              const Icon = icons[index];
               return (
                 <motion.div
                   key={index}

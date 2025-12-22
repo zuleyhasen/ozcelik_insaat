@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckIcon } from './ConstructionIcons';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export function ContactSection() {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -18,7 +20,6 @@ export function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
     setSubmitted(true);
     setTimeout(() => {
       setFormData({ name: '', email: '', phone: '', message: '' });
@@ -58,9 +59,9 @@ export function ContactSection() {
           {/* Section Header */}
           <motion.div variants={itemVariants} className="mb-16 text-center">
             <div className="h-1 w-16 bg-accent rounded-full mb-4 mx-auto" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">İletişime Geçin</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t.contact.title}</h2>
             <p className="text-lg text-muted-foreground">
-              Projeleriniz hakkında bize yazın, en kısa sürede sizinle iletişime geçeceğiz.
+              {t.contact.subtitle}
             </p>
           </motion.div>
 
@@ -68,7 +69,7 @@ export function ContactSection() {
             {/* Contact Information */}
             <motion.div variants={itemVariants} className="space-y-8">
               <div>
-                <h3 className="text-lg font-semibold mb-2">Adres</h3>
+                <h3 className="text-lg font-semibold mb-2">{t.contact.address}</h3>
                 <p className="text-foreground/70">
                   Merkez Mahallesi, Ticaret Caddesi No: 42<br />
                   Şehir, Ülke
@@ -76,25 +77,25 @@ export function ContactSection() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-2">Telefon</h3>
+                <h3 className="text-lg font-semibold mb-2">{t.contact.phone}</h3>
                 <a href="tel:+905551234567" className="text-accent hover:underline">
                   +90 555 123 45 67
                 </a>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-2">E-posta</h3>
+                <h3 className="text-lg font-semibold mb-2">{t.contact.email}</h3>
                 <a href="mailto:info@ozcelik.com" className="text-accent hover:underline">
                   info@ozcelik.com
                 </a>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold mb-4">Çalışma Saatleri</h3>
+                <h3 className="text-lg font-semibold mb-4">{t.contact.hours}</h3>
                 <div className="space-y-2 text-foreground/70">
-                  <p>Pazartesi - Cuma: 08:00 - 18:00</p>
-                  <p>Cumartesi: 09:00 - 14:00</p>
-                  <p>Pazar: Kapalı</p>
+                  <p>{t.contact.mondayFriday}</p>
+                  <p>{t.contact.saturday}</p>
+                  <p>{t.contact.sunday}</p>
                 </div>
               </div>
             </motion.div>
@@ -104,7 +105,7 @@ export function ContactSection() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    Ad Soyad
+                    {t.contact.form.name}
                   </label>
                   <input
                     type="text"
@@ -114,13 +115,13 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
-                    placeholder="Adınız"
+                    placeholder={t.contact.form.namePlaceholder}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    E-posta
+                    {t.contact.form.email}
                   </label>
                   <input
                     type="email"
@@ -130,13 +131,13 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
-                    placeholder="E-posta adresiniz"
+                    placeholder={t.contact.form.emailPlaceholder}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                    Telefon
+                    {t.contact.form.phone}
                   </label>
                   <input
                     type="tel"
@@ -145,13 +146,13 @@ export function ContactSection() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
-                    placeholder="Telefon numaranız"
+                    placeholder={t.contact.form.phonePlaceholder}
                   />
                 </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    Mesaj
+                    {t.contact.form.message}
                   </label>
                   <textarea
                     id="message"
@@ -161,7 +162,7 @@ export function ContactSection() {
                     required
                     rows={5}
                     className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all resize-none"
-                    placeholder="Mesajınız..."
+                    placeholder={t.contact.form.messagePlaceholder}
                   />
                 </div>
 
@@ -173,10 +174,10 @@ export function ContactSection() {
                   {submitted ? (
                     <>
                       <CheckIcon className="w-5 h-5" />
-                      Gönderildi!
+                      {t.contact.form.submitted}
                     </>
                   ) : (
-                    'Gönder'
+                    t.contact.form.submit
                   )}
                 </button>
               </form>

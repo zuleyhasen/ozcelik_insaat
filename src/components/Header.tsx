@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   const menuItems = [
-    { label: 'Hakkımızda', href: '#about' },
-    { label: 'Projeler', href: '#projects' },
-    { label: 'İletişim', href: '#contact' },
+    { label: t.nav.about, href: '#about' },
+    { label: t.nav.projects, href: '#projects' },
+    { label: t.nav.contact, href: '#contact' },
   ];
 
   return (
@@ -34,21 +37,25 @@ export function Header() {
                 {item.label}
               </a>
             ))}
+            <LanguageSwitcher />
             <a
               href="#contact"
               className="px-6 py-2 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors duration-200"
             >
-              İletişim
+              {t.nav.contactBtn}
             </a>
           </nav>
 
           {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="md:hidden flex items-center gap-4">
+            <LanguageSwitcher />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 hover:bg-secondary rounded-lg transition-colors"
+            >
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -76,7 +83,7 @@ export function Header() {
                   onClick={() => setIsOpen(false)}
                   className="mx-4 px-6 py-2 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors duration-200 text-center"
                 >
-                  İletişim
+                  {t.nav.contactBtn}
                 </a>
               </div>
             </motion.nav>
