@@ -2,48 +2,45 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const partnerLogos = [
-  '/images/partners/abb.png',
-  '/images/partners/anl.png',
-  '/images/partners/bosh.png',
-  '/images/partners/hilti.png',
-  '/images/partners/legrand.png',
-  '/images/partners/nippon.png',
-  '/images/partners/philips.png',
+  '/images/partners/kutahya.png',
+  '/images/partners/camsan.png',
+  '/images/partners/winsa.png',
+  '/images/partners/firatpen.png',
 ];
 
 export function BrandsBand() {
   const { language } = useLanguage();
-  const duplicatedLogos = [...partnerLogos, ...partnerLogos, ...partnerLogos];
+
+  // Mobilde atlama olmaması için listeyi iyice uzatıyoruz (en az 8-10 kopya)
+  const duplicatedLogos = [...partnerLogos, ...partnerLogos, ...partnerLogos, ...partnerLogos];
 
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden">
+    <section className="py-12 md:py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
-        
+
         {/* Başlık */}
-        <div className="mb-12 text-center">
-          <h3 className="text-xl md:text-2xl font-bold uppercase tracking-[0.3em] text-foreground/80">
+        <div className="mb-10 text-center">
+          <h3 className="text-lg md:text-2xl font-bold uppercase tracking-[0.3em] text-foreground/80">
             {language === 'tr' ? 'Çözüm Ortaklarımız' : 'Our Partners'}
           </h3>
         </div>
 
-        {/* Kısıtlanmış Akış Alanı */}
-        <div className="relative max-w-10xl mx-auto px-10"> 
-          
-          {/* Sol taraf: Beyazdan şeffafa */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-white via-white to-transparent z-20 pointer-events-none" />
-          
-          {/* Sağ taraf: Şeffaftan beyaza */}
-          <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-white via-white to-transparent z-20 pointer-events-none" />
+        {/* Kısıtlanmış Alan */}
+        <div className="relative w-full max-w-[1400px] mx-auto overflow-hidden">
 
-          {/* Logo Taşıyıcı */}
-          <div className="overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-64 bg-gradient-to-r from-white via-white/80 to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-64 bg-gradient-to-l from-white via-white/80 to-transparent z-20 pointer-events-none" />
+
+          {/* Akış Alanı */}
+          <div className="flex">
             <motion.div
-              className="flex gap-16 md:gap-24 items-center"
-              animate={{ 
-                x: ["0%", "-33.33%"] 
+              className="flex gap-10 md:gap-32 items-center shrink-0"
+              animate={{
+                // X değeri logonun toplam genişliği kadar kaymalı
+                x: ["0%", "-50%"]
               }}
               transition={{
-                duration: 30,
+                duration: 20, // Burayı düşürdükçe hızlanır (15 saniye şu an oldukça seri)
                 repeat: Infinity,
                 ease: 'linear',
               }}
@@ -51,12 +48,12 @@ export function BrandsBand() {
               {duplicatedLogos.map((logo, index) => (
                 <div
                   key={index}
-                  className="w-24 md:w-32 h-16 md:h-20 flex items-center justify-center flex-shrink-0"
+                  className="w-28 h-16 md:w-64 md:h-32 flex items-center justify-center shrink-0"
                 >
                   <img
                     src={logo}
-                    alt={`Partner ${index + 1}`}
-                    className="max-w-full max-h-full object-contain pointer-events-none"
+                    alt={`Partner ${index}`}
+                    className="max-w-full max-h-full object-contain pointer-events-none transition-all"
                   />
                 </div>
               ))}
