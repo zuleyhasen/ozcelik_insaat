@@ -5,13 +5,16 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 export function ContactSection() {
   const { t } = useLanguage();
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: '',
   });
+  
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -20,169 +23,164 @@ export function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setFormData({ name: '', email: '', phone: '', message: '' });
-      setSubmitted(false);
-    }, 3000);
-  };
+    setLoading(true);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', message: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    }, 1500);
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-background">
+    <section id="contact" className="py-20 md:py-32 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
-          className="max-w-5xl mx-auto"
-          variants={containerVariants}
+          className="max-w-6xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
         >
-          {/* Section Header */}
-          <motion.div variants={itemVariants} className="mb-16 text-center">
-            <div className="h-1 w-16 bg-accent rounded-full mb-4 mx-auto" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t.contact.title}</h2>
-            <p className="text-lg text-muted-foreground">
+          {/* Üst Başlık */}
+          <motion.div variants={itemVariants} className="mb-16">
+            <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter mb-4 text-foreground">
+              {t.contact.title}
+            </h2>
+            <p className="text-md text-muted-foreground uppercase tracking-widest font-medium">
               {t.contact.subtitle}
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <motion.div variants={itemVariants} className="space-y-8">
+          {/* Üst Blok: Adres Bilgileri ve Harita Yan Yana */}
+          <div className="grid lg:grid-cols-2 gap-12 mb-20 items-stretch">
+            
+            {/* SOL: İletişim Detayları */}
+            <motion.div variants={itemVariants} className="flex flex-col justify-center space-y-12">
               <div>
-                <h3 className="text-lg font-semibold mb-2">{t.contact.address}</h3>
-                <p className="text-foreground/70">
-                  Merkez Mahallesi, Ticaret Caddesi No: 42<br />
-                  Şehir, Ülke
+                <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-4">{t.contact.address}</h3>
+                <p className="text-md md:text-xl font-bold leading-tight text-foreground uppercase tracking-tight">
+                  Üçevler Mah. Bahçe Yolu Cad.<br />
+                  No: 46/B Esenyurt / İSTANBUL
                 </p>
               </div>
 
-              <div>
-                <h3 className="text-lg font-semibold mb-2">{t.contact.phone}</h3>
-                <a href="tel:+905551234567" className="text-accent hover:underline">
-                  +90 555 123 45 67
-                </a>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold mb-2">{t.contact.email}</h3>
-                <a href="mailto:info@ozcelik.com" className="text-accent hover:underline">
-                  info@ozcelik.com
-                </a>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold mb-4">{t.contact.hours}</h3>
-                <div className="space-y-2 text-foreground/70">
-                  <p>{t.contact.mondayFriday}</p>
-                  <p>{t.contact.saturday}</p>
-                  <p>{t.contact.sunday}</p>
+              <div className="grid sm:grid-cols-2 gap-10">
+                <div>
+                  <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-4">{t.contact.phone}</h3>
+                  <a href="tel:+905320000000" className="text-xl font-bold hover:text-primary transition-colors">
+                    +90 532 000 00 00
+                  </a>
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-4">{t.contact.email}</h3>
+                  <a href="mailto:info@ozcelikinsaat.com" className="text-xl font-bold hover:text-primary transition-colors">
+                    info@ozcelikinsaat.com
+                  </a>
                 </div>
               </div>
             </motion.div>
 
-            {/* Contact Form */}
-            <motion.div variants={itemVariants}>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2">
-                    {t.contact.form.name}
-                  </label>
+            {/* SAĞ: Harita (Tam Konum Pinli) */}
+            <motion.div 
+              variants={itemVariants}
+              className="w-full h-[400px] lg:h-auto min-h-[400px] rounded-sm overflow-hidden border border-border transition-all duration-1000"
+            >
+              <iframe
+                title="Özçelik Yapı Konum"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.085025707746!2d28.6791668!3d41.0014813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa11796e9cf97%3A0xd5c5ba83d7a8838e!2zWcO8Y2V2bGVyLCBCYWhjZSBZb2x1IENkLiBubzo0NlxCLCAzNDUwMCBFc2VueXVydC_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </motion.div>
+          </div>
+
+          {/* Alt Blok: Minimal İletişim Formu */}
+          <motion.div 
+            variants={itemVariants}
+            className="bg-zinc-50 p-8 md:p-16 border border-zinc-200"
+          >
+            <form onSubmit={handleSubmit} className="space-y-10">
+              <div className="grid md:grid-cols-3 gap-10">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">{t.contact.form.name}</label>
                   <input
                     type="text"
-                    id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+                    className="w-full bg-transparent border-b-2 border-zinc-200 focus:border-primary outline-none py-3 px-0 transition-all text-lg font-bold"
                     placeholder={t.contact.form.namePlaceholder}
                   />
                 </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2">
-                    {t.contact.form.email}
-                  </label>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">{t.contact.form.phone}</label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full bg-transparent border-b-2 border-zinc-200 focus:border-primary outline-none py-3 px-0 transition-all text-lg font-bold"
+                    placeholder={t.contact.form.phonePlaceholder}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">{t.contact.form.email}</label>
                   <input
                     type="email"
-                    id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+                    className="w-full bg-transparent border-b-2 border-zinc-200 focus:border-primary outline-none py-3 px-0 transition-all text-lg font-bold"
                     placeholder={t.contact.form.emailPlaceholder}
                   />
                 </div>
+              </div>
 
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                    {t.contact.form.phone}
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
-                    placeholder={t.contact.form.phonePlaceholder}
-                  />
-                </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">{t.contact.form.message}</label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={2}
+                  className="w-full bg-transparent border-b-2 border-zinc-200 focus:border-primary outline-none py-3 px-0 transition-all text-lg font-bold resize-none"
+                  placeholder={t.contact.form.messagePlaceholder}
+                />
+              </div>
 
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium mb-2">
-                    {t.contact.form.message}
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all resize-none"
-                    placeholder={t.contact.form.messagePlaceholder}
-                  />
-                </div>
-
+              <div className="flex justify-end">
                 <button
                   type="submit"
-                  disabled={submitted}
-                  className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+                  disabled={loading || submitted}
+                  className="px-14 py-5 bg-foreground text-background font-black uppercase tracking-[0.3em] hover:bg-primary transition-all duration-500 disabled:opacity-50 flex items-center gap-4"
                 >
-                  {submitted ? (
+                  {loading ? (
+                    <span className="animate-pulse">...</span>
+                  ) : submitted ? (
                     <>
-                      <CheckIcon className="w-5 h-5" />
+                      <CheckIcon className="w-5 h-5 text-green-500" />
                       {t.contact.form.submitted}
                     </>
                   ) : (
                     t.contact.form.submit
                   )}
                 </button>
-              </form>
-            </motion.div>
-          </div>
+              </div>
+            </form>
+          </motion.div>
         </motion.div>
       </div>
     </section>

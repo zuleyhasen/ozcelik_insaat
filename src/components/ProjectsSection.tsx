@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { projects } from '@/data/projects';
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'; 
 
 export function ProjectsSection() {
   const { language, t } = useLanguage();
@@ -36,9 +36,8 @@ export function ProjectsSection() {
     return language === 'tr' ? project.locationTr : project.locationEn;
   };
 
-  const getProjectDescription = (project: (typeof projects)[0]) => {
-    return language === 'tr' ? project.descriptionTr : project.descriptionEn;
-  };
+
+
 
   return (
     <section id="projects" className="py-20 md:py-32 bg-secondary/30">
@@ -78,23 +77,19 @@ export function ProjectsSection() {
                     className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full"
                   >
                     {/* Project Image */}
-                    <div className="relative h-80 overflow-hidden bg-muted flex-shrink-0">
+                    <div className="relative h-80 overflow-hidden bg-gray-50 flex-shrink-0">
                       <img
                         src={project.image}
                         alt={getProjectTitle(project)}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
+                      <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
                     </div>
 
                     {/* Project Info */}
                     <div className="p-6 flex-grow flex flex-col justify-between">
                       <div>
-                        <span className="text-xs font-semibold text-accent uppercase tracking-wide">
-                          {project.category}
-                        </span>
                         <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
-                        <p className="text-foreground/70 mb-4">{getProjectDescription(project)}</p>
                       </div>
                       <div className="flex items-center text-sm text-muted-foreground">
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -139,11 +134,11 @@ export function ProjectsSection() {
                     className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 relative flex flex-col h-full"
                   >
                     {/* Project Image */}
-                    <div className="relative h-80 overflow-hidden bg-muted flex-shrink-0">
+                    <div className="relative h-80 overflow-hidden bg-gray-50 flex-shrink-0">
                       <img
                         src={project.image}
                         alt={getProjectTitle(project)}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300" />
                       {/* Subtle ongoing indicator */}
@@ -155,11 +150,7 @@ export function ProjectsSection() {
                     {/* Project Info */}
                     <div className="p-6 flex-grow flex flex-col justify-between">
                       <div>
-                        <span className="text-xs font-semibold text-accent uppercase tracking-wide">
-                          {project.category}
-                        </span>
                         <h3 className="text-xl font-bold mb-2 mt-2">{getProjectTitle(project)}</h3>
-                        <p className="text-foreground/70 mb-4">{getProjectDescription(project)}</p>
                       </div>
                       <div className="flex items-center text-sm text-muted-foreground">
                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -194,83 +185,102 @@ export function ProjectsSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedProject(null)}
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 overflow-y-auto"
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 backdrop-blur-sm"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
+              initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
+              exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-card rounded-lg max-w-3xl w-full my-8"
+              className="bg-card rounded-xl max-w-5xl w-full overflow-hidden shadow-2xl"
             >
-              {/* Close Button */}
-              <div className="sticky top-0 flex justify-end p-4 bg-card border-b border-border z-10">
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="p-2 hover:bg-secondary rounded-lg transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
+              <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
 
-              {/* Scrollable Content */}
-              <div className="max-h-[calc(90vh-80px)] overflow-y-auto">
-                {/* Gallery */}
-                <div className="relative bg-muted h-96">
-                  <img
-                    src={selectedProject.gallery[selectedImageIndex]}
-                    alt={getProjectTitle(selectedProject)}
-                    className="w-full h-full object-cover"
-                  />
-                  {selectedProject.gallery.length > 1 && (
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                      {selectedProject.gallery.map((_, index) => (
+                <div className="relative w-full md:w-3/5 lg:w-2/3 bg-zinc-100 flex flex-col border-r border-border">
+
+                  {/* Ana Görsel */}
+                  <div className="relative flex-1 flex items-center justify-center overflow-hidden p-4 min-h-[300px] md:min-h-[500px]">
+                    <motion.img
+                      key={selectedImageIndex}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      src={selectedProject.gallery[selectedImageIndex]}
+                      alt={getProjectTitle(selectedProject)}
+                      className="max-w-full max-h-full object-contain shadow-md rounded-sm"
+                    />
+
+                    {/* Kaydırma Butonları */}
+                    {selectedProject.gallery.length > 1 && (
+                      <>
                         <button
-                          key={index}
-                          onClick={() => setSelectedImageIndex(index)}
-                          className={`w-2 h-2 rounded-full transition-all ${
-                            index === selectedImageIndex ? 'bg-white w-8' : 'bg-white/50'
+                          onClick={() => setSelectedImageIndex((prev) => (prev === 0 ? selectedProject.gallery.length - 1 : prev - 1))}
+                          className="absolute left-4 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg transition-all text-black"
+                        >
+                          <ChevronLeft className="w-6 h-6" />
+                        </button>
+                        <button
+                          onClick={() => setSelectedImageIndex((prev) => (prev === selectedProject.gallery.length - 1 ? 0 : prev + 1))}
+                          className="absolute right-4 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg transition-all text-black"
+                        >
+                          <ChevronRight className="w-6 h-6" />
+                        </button>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Küçük Resimler (Thumbnails) */}
+                  <div className="bg-white p-4 border-t border-border flex gap-2 overflow-x-auto scrollbar-hide">
+                    {selectedProject.gallery.map((img, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setSelectedImageIndex(idx)}
+                        className={`relative flex-shrink-0 w-20 h-16 rounded-md overflow-hidden border-2 transition-all ${selectedImageIndex === idx ? 'border-[#ff6b00] scale-105' : 'border-transparent opacity-60 hover:opacity-100'
                           }`}
-                        />
-                      ))}
-                    </div>
-                  )}
+                      >
+                        <img src={img} className="w-full h-full object-cover" alt="thumbnail" />
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Project Details */}
-                <div className="p-8">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm font-semibold text-accent uppercase tracking-wide">
-                      {selectedProject.category}
-                    </span>
-                    <span className="text-sm font-semibold text-accent uppercase tracking-wide">
+                {/* SAĞ: Proje Detayları */}
+                <div className="w-full md:w-2/5 lg:w-1/3 p-8 md:p-10 flex flex-col bg-card overflow-y-auto">
+                  <div className="flex justify-between items-start mb-8">
+                    <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 border-[#ff6b00]">
                       {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
                     </span>
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="p-1 hover:bg-zinc-100 rounded-full transition-colors"
+                    >
+                      <X className="w-6 h-6 text-muted-foreground" />
+                    </button>
                   </div>
-                  <h2 className="text-3xl font-bold mb-4">{getProjectTitle(selectedProject)}</h2>
-                  <p className="text-foreground/70 mb-6 leading-relaxed">{getProjectDescription(selectedProject)}</p>
 
-                  <div className="grid md:grid-cols-2 gap-6 mb-6">
-                    <div>
-                      <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
+                  <h2 className="text-3xl font-black text-foreground uppercase tracking-tighter leading-none mb-8">
+                    {getProjectTitle(selectedProject)}
+                  </h2>
+
+                  <div className="space-y-6 pt-6 border-t border-border">
+                    <div className="flex flex-col gap-1">
+                      <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
                         {t.projects.location}
                       </h3>
-                      <p className="text-lg">{getProjectLocation(selectedProject)}</p>
+                      <p className="text-lg font-bold text-foreground">
+                        {selectedProject.detailedLocation}
+                      </p>
                     </div>
-                    <div>
-                      <h3 className="text-sm font-semibold text-muted-foreground uppercase mb-2">
-                        {t.projects.category}
+
+                    {/* Buraya m2, Yıl gibi ekstra bilgiler de eklenebilir */}
+                    <div className="flex flex-col gap-1">
+                      <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
+                        Görsel Sayısı
                       </h3>
-                      <p className="text-lg">{selectedProject.category}</p>
+                      <p className="text-sm font-medium">
+                        {selectedImageIndex + 1} / {selectedProject.gallery.length}
+                      </p>
                     </div>
                   </div>
-
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="w-full px-6 py-3 bg-accent text-accent-foreground rounded-lg font-semibold hover:bg-accent/90 transition-colors"
-                  >
-                    {t.projects.close}
-                  </button>
                 </div>
               </div>
             </motion.div>

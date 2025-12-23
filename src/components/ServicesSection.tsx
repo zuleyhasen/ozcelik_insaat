@@ -49,10 +49,10 @@ export function ServicesSection() {
       icon: SafetyIcon,
     },
     {
-      titleTr: 'Restorasyon Çalışmaları',
-      titleEn: 'Restoration Works',
-      descTr: 'Eski binaların restorasyonunda deneyim ve uzmanlık ile kaliteli hizmet sunuyoruz.',
-      descEn: 'We provide quality restoration services for older buildings with experience and expertise.',
+      titleTr: 'Kentsel Dönüşüm Kapsamında Apartman İnşaatı',
+      titleEn: 'Residential Construction in Urban Transformation Projects',
+      descTr: 'Kentsel dönüşüm projeleri kapsamında apartman inşaatları, modern mimari çizgileri ve kaliteli malzeme kullanımıyla estetik ve konforu bir arada sunmaktadır.',
+      descEn: 'In our urban transformation projects, we build apartments with modern architectural lines and high-quality materials, combining aesthetics and comfort.',
       icon: QualityIcon,
     },
   ];

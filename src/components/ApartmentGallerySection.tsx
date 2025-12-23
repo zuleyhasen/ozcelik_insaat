@@ -1,24 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const apartmentImages = [
-  '/images/ornek_daire/1.jpeg',
-  '/images/ornek_daire/2.jpeg',
-  '/images/ornek_daire/3.jpeg',
-  '/images/ornek_daire/4.jpeg',
-  '/images/ornek_daire/5.jpeg',
-  '/images/ornek_daire/6.jpeg',
-  '/images/ornek_daire/7.jpeg',
-  '/images/ornek_daire/8.jpeg',
-  '/images/ornek_daire/9.jpeg',
-  '/images/ornek_daire/10.jpeg',
-  '/images/ornek_daire/11.jpeg',
-  '/images/ornek_daire/12.jpeg',
-  '/images/ornek_daire/13.jpeg',
-  '/images/ornek_daire/14.jpeg',
-  '/images/ornek_daire/15.jpeg',
+  '/images/ornek_daire/1.jpeg', '/images/ornek_daire/2.jpeg', '/images/ornek_daire/3.jpeg',
+  '/images/ornek_daire/4.jpeg', '/images/ornek_daire/5.jpeg', '/images/ornek_daire/6.jpeg',
+  '/images/ornek_daire/7.jpeg', '/images/ornek_daire/8.jpeg', '/images/ornek_daire/9.jpeg',
+  '/images/ornek_daire/10.jpeg', '/images/ornek_daire/11.jpeg', '/images/ornek_daire/12.jpeg',
+  '/images/ornek_daire/13.jpeg', '/images/ornek_daire/14.jpeg', '/images/ornek_daire/15.jpeg',
   '/images/ornek_daire/16.jpeg',
 ];
 
@@ -26,139 +16,125 @@ export function ApartmentGallerySection() {
   const { language } = useLanguage();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
-  };
-
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (selectedImageIndex !== null) {
-      setSelectedImageIndex((selectedImageIndex + 1) % apartmentImages.length);
+      setSelectedImageIndex((prev) => (prev! + 1) % apartmentImages.length);
     }
-  };
+  }, [selectedImageIndex]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (selectedImageIndex !== null) {
-      setSelectedImageIndex(
-        selectedImageIndex === 0 ? apartmentImages.length - 1 : selectedImageIndex - 1
+      setSelectedImageIndex((prev) =>
+        prev === 0 ? apartmentImages.length - 1 : prev! - 1
       );
     }
-  };
+  }, [selectedImageIndex]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedImageIndex === null) return;
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+      if (e.key === 'Escape') setSelectedImageIndex(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImageIndex, handleNext, handlePrev]);
 
   return (
-    <section className="py-20 md:py-32 bg-background">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {/* Section Header */}
-          <motion.div variants={itemVariants} className="mb-16 text-center">
-            <div className="h-1 w-16 bg-accent rounded-full mb-4 mx-auto" />
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              {language === 'tr' ? 'Örnek Daireler' : 'Sample Apartments'}
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {language === 'tr'
-                ? 'Projelerimizde yer alan modern dairelerin iç mekan tasarımını ve kalitesini gösteren örnek görseller.'
-                : 'Sample visuals showcasing the interior design and quality of modern apartments in our projects.'}
-            </p>
-          </motion.div>
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tighter text-foreground">
+            {language === 'tr' ? 'Örnek Daire Galeri' : 'Sample Apartment Gallery'}
+          </h2>
+          <div className="h-1 w-12 bg-accent mx-auto" />
+        </div>
 
-          {/* Gallery Grid */}
-          <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"
-          >
-            {apartmentImages.map((image, index) => (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                onClick={() => setSelectedImageIndex(index)}
-                className="group cursor-pointer rounded-lg overflow-hidden bg-muted aspect-square"
-              >
-                <img
-                  src={image}
-                  alt={`Sample apartment ${index + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {apartmentImages.map((image, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 0.98 }}
+              onClick={() => setSelectedImageIndex(index)}
+              className="group cursor-pointer relative aspect-square overflow-hidden bg-muted rounded-sm border border-border/50"
+            >
+              <img
+                src={image}
+                alt={`Gallery ${index + 1}`}
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      {/* Lightbox Modal */}
       <AnimatePresence>
         {selectedImageIndex !== null && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedImageIndex(null)}
-            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 overflow-hidden"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12"
           >
+            {/* Şeffaf Arka Plan: bg-black/40 ve yoğun blur */}
+            <div 
+              className="absolute inset-0 bg-black/40 backdrop-blur-md" 
+              onClick={() => setSelectedImageIndex(null)}
+            />
+
+            {/* Galeri Penceresi */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-4xl max-h-[90vh]"
+              className="relative w-full max-w-5xl z-[110] flex items-center justify-center"
             >
-              {/* Image */}
-              <img
-                src={apartmentImages[selectedImageIndex]}
-                alt={`Sample apartment ${selectedImageIndex + 1}`}
-                className="w-full h-full object-contain rounded-lg"
-              />
-
-              {/* Close Button */}
+              {/* Kapat Butonu (Üst Sağda) */}
               <button
+                className="absolute -top-12 right-0 md:-right-12 text-foreground/60 hover:text-foreground transition-colors p-2"
                 onClick={() => setSelectedImageIndex(null)}
-                className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 rounded-lg transition-colors"
               >
-                <X className="w-6 h-6 text-white" />
+                <X size={32} />
               </button>
 
-              {/* Navigation Buttons */}
-              {apartmentImages.length > 1 && (
-                <>
-                  <button
-                    onClick={handlePrev}
-                    className="absolute left-4 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 rounded-lg transition-colors"
-                  >
-                    <ChevronLeft className="w-6 h-6 text-white" />
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 p-2 bg-black/50 hover:bg-black/70 rounded-lg transition-colors"
-                  >
-                    <ChevronRight className="w-6 h-6 text-white" />
-                  </button>
-                </>
-              )}
+              {/* Sol Ok */}
+              <button
+                onClick={handlePrev}
+                className="absolute -left-4 md:-left-20 p-2 text-foreground/40 hover:text-accent transition-all hover:scale-125"
+              >
+                <ChevronLeft size={48} strokeWidth={1} />
+              </button>
 
-              {/* Image Counter */}
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-lg text-sm font-medium">
-                {selectedImageIndex + 1} / {apartmentImages.length}
+              {/* Ana Görsel Kutusu */}
+              <div className="w-full aspect-video md:aspect-[16/10] bg-background/80 shadow-2xl rounded-sm overflow-hidden border border-border flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={selectedImageIndex}
+                    src={apartmentImages[selectedImageIndex]}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                    className="max-w-full max-h-full object-contain p-2"
+                  />
+                </AnimatePresence>
               </div>
 
+              {/* Sağ Ok */}
+              <button
+                onClick={handleNext}
+                className="absolute -right-4 md:-right-20 p-2 text-foreground/40 hover:text-accent transition-all hover:scale-125"
+              >
+                <ChevronRight size={48} strokeWidth={1} />
+              </button>
+
+              {/* Alt Bilgi */}
+              <div className="absolute -bottom-10 left-0 right-0 flex justify-between text-[10px] font-bold tracking-widest text-foreground/40 uppercase">
+                <span>{selectedImageIndex + 1} / {apartmentImages.length}</span>
+                <span className="hidden md:inline">ÖZÇELİK İNŞAAT - ÖRNEK DAİRE</span>
+              </div>
             </motion.div>
           </motion.div>
         )}

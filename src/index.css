@@ -45,57 +45,57 @@
 }
 
 :root {
-  /* Primary: Deep slate/charcoal - professional, trustworthy, grounded */
-  --primary: oklch(0.25 0.06 260);
-  --primary-foreground: oklch(0.95 0.01 60);
-  --sidebar-primary: oklch(0.25 0.06 260);
-  --sidebar-primary-foreground: oklch(0.95 0.01 60);
+  /* Primary: Deep slate gray - professional, trustworthy, grounded */
+  --primary: oklch(0.32 0.08 260);
+  --primary-foreground: oklch(0.98 0.001 0);
+  --sidebar-primary: oklch(0.32 0.08 260);
+  --sidebar-primary-foreground: oklch(0.98 0.001 0);
   
   /* Accent: Warm amber from construction materials - warmth, progress */
-  --accent: oklch(0.65 0.22 60);
-  --accent-foreground: oklch(0.15 0.04 260);
+  --accent: oklch(0.62 0.20 60);
+  --accent-foreground: oklch(0.98 0.001 0);
   
   /* Chart colors - construction-inspired palette */
-  --chart-1: oklch(0.65 0.22 60);
-  --chart-2: oklch(0.55 0.18 50);
-  --chart-3: oklch(0.25 0.06 260);
-  --chart-4: oklch(0.35 0.08 260);
-  --chart-5: oklch(0.45 0.10 260);
+  --chart-1: oklch(0.62 0.20 60);
+  --chart-2: oklch(0.50 0.15 50);
+  --chart-3: oklch(0.32 0.08 260);
+  --chart-4: oklch(0.45 0.08 260);
+  --chart-5: oklch(0.25 0.06 260);
   
   --radius: 0.5rem;
   
-  /* Backgrounds - dark theme */
-  --background: oklch(0.12 0.02 260);
-  --foreground: oklch(0.92 0.01 60);
-  --card: oklch(0.18 0.03 260);
-  --card-foreground: oklch(0.92 0.01 60);
-  --popover: oklch(0.18 0.03 260);
-  --popover-foreground: oklch(0.92 0.01 60);
+  /* Backgrounds - clean, professional */
+  --background: oklch(0.99 0.001 0);
+  --foreground: oklch(0.22 0.04 260);
+  --card: oklch(0.98 0.001 0);
+  --card-foreground: oklch(0.22 0.04 260);
+  --popover: oklch(0.98 0.001 0);
+  --popover-foreground: oklch(0.22 0.04 260);
   
   /* Secondary - warm neutral tones */
-  --secondary: oklch(0.25 0.05 50);
-  --secondary-foreground: oklch(0.92 0.01 60);
+  --secondary: oklch(0.94 0.02 60);
+  --secondary-foreground: oklch(0.22 0.04 260);
   
-  /* Muted - subtle dark grays */
-  --muted: oklch(0.28 0.04 260);
-  --muted-foreground: oklch(0.65 0.08 260);
+  /* Muted - subtle grays */
+  --muted: oklch(0.93 0.01 0);
+  --muted-foreground: oklch(0.52 0.05 260);
   
   /* Destructive - warning red */
-  --destructive: oklch(0.65 0.22 27);
-  --destructive-foreground: oklch(0.15 0.04 260);
+  --destructive: oklch(0.58 0.24 27);
+  --destructive-foreground: oklch(0.98 0.001 0);
   
   /* Borders and inputs */
-  --border: oklch(0.25 0.04 260);
-  --input: oklch(0.22 0.03 260);
-  --ring: oklch(0.65 0.22 60);
+  --border: oklch(0.91 0.01 0);
+  --input: oklch(0.91 0.01 0);
+  --ring: oklch(0.32 0.08 260);
   
   /* Sidebar */
-  --sidebar: oklch(0.18 0.03 260);
-  --sidebar-foreground: oklch(0.92 0.01 60);
-  --sidebar-accent: oklch(0.25 0.05 50);
-  --sidebar-accent-foreground: oklch(0.92 0.01 60);
-  --sidebar-border: oklch(0.25 0.04 260);
-  --sidebar-ring: oklch(0.65 0.22 60);
+  --sidebar: oklch(0.98 0.001 0);
+  --sidebar-foreground: oklch(0.22 0.04 260);
+  --sidebar-accent: oklch(0.94 0.02 60);
+  --sidebar-accent-foreground: oklch(0.22 0.04 260);
+  --sidebar-border: oklch(0.91 0.01 0);
+  --sidebar-ring: oklch(0.32 0.08 260);
 }
 
 .dark {
@@ -125,11 +125,16 @@
   --chart-3: oklch(0.45 0.12 265);
   --chart-4: oklch(0.35 0.10 265);
   --chart-5: oklch(0.25 0.08 265);
-  --sidebar: oklch(0.18 0.03 265);
-  --sidebar-foreground: oklch(0.95 0.01 0);
+:root {
+  /* ... diğer değişkenler ... */
+
+  /* Sidebar: Antrasit tonu kalsın ama %80 şeffaf olsun */
+  --sidebar: oklch(0.20 0.02 255 / 0.8); 
+  --sidebar-foreground: oklch(0.95 0.01 255);
+  --sidebar-border: oklch(1 1 1 / 0.1); /* Kenarlık çok hafif beyazımsı olsun */
+}
   --sidebar-accent: oklch(0.30 0.04 265);
   --sidebar-accent-foreground: oklch(0.95 0.01 0);
-  --sidebar-border: oklch(0.25 0.02 265);
   --sidebar-ring: oklch(0.65 0.12 265);
 }
 
@@ -140,11 +145,11 @@
   
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter';
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Inter';
     font-weight: 700;
     letter-spacing: -0.02em;
   }

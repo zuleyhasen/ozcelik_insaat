@@ -13,60 +13,55 @@ const partnerLogos = [
 
 export function BrandsBand() {
   const { language } = useLanguage();
-
-  // Duplicate logos for seamless scrolling
-  const duplicatedLogos = [...partnerLogos, ...partnerLogos];
+  const duplicatedLogos = [...partnerLogos, ...partnerLogos, ...partnerLogos];
 
   return (
-    <section className="py-16 md:py-20 bg-primary/5 border-y border-border">
+    <section className="py-16 md:py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
-        >
-          <h3 className="text-2xl md:text-3xl font-bold mb-2">
-            {language === 'tr' ? 'Çalıştığımız Markalar' : 'Our Partners'}
+        
+        {/* Başlık */}
+        <div className="mb-12 text-center">
+          <h3 className="text-xl md:text-2xl font-bold uppercase tracking-[0.3em] text-foreground/80">
+            {language === 'tr' ? 'Çözüm Ortaklarımız' : 'Our Partners'}
           </h3>
-          <p className="text-muted-foreground">
-            {language === 'tr'
-              ? 'Kaliteli malzeme ve ekipman sağlayıcılarımız'
-              : 'Quality material and equipment suppliers'}
-          </p>
-        </motion.div>
+        </div>
 
-        {/* Scrolling Logos */}
-        <div className="relative overflow-hidden">
-          <motion.div
-            className="flex gap-12 md:gap-16"
-            animate={{ x: [0, -100 * partnerLogos.length + '%'] }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-          >
-            {duplicatedLogos.map((logo, index) => (
-              <motion.div
-                key={index}
-                className="flex-shrink-0 w-32 h-24 md:w-40 md:h-28 flex items-center justify-center bg-background rounded-lg border border-border/50 hover:border-accent transition-colors duration-300 group"
-                whileHover={{ scale: 1.05 }}
-              >
-                <img
-                  src={logo}
-                  alt={`Partner ${index + 1}`}
-                  className="max-w-[80%] max-h-[80%] object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
-                />
-              </motion.div>
-            ))}
-          </motion.div>
+        {/* Kısıtlanmış Akış Alanı */}
+        <div className="relative max-w-10xl mx-auto px-10"> 
+          
+          {/* Sol taraf: Beyazdan şeffafa */}
+          <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-r from-white via-white to-transparent z-20 pointer-events-none" />
+          
+          {/* Sağ taraf: Şeffaftan beyaza */}
+          <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 bg-gradient-to-l from-white via-white to-transparent z-20 pointer-events-none" />
 
-          {/* Gradient overlays for smooth fade */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+          {/* Logo Taşıyıcı */}
+          <div className="overflow-hidden">
+            <motion.div
+              className="flex gap-16 md:gap-24 items-center"
+              animate={{ 
+                x: ["0%", "-33.33%"] 
+              }}
+              transition={{
+                duration: 30,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            >
+              {duplicatedLogos.map((logo, index) => (
+                <div
+                  key={index}
+                  className="w-24 md:w-32 h-16 md:h-20 flex items-center justify-center flex-shrink-0"
+                >
+                  <img
+                    src={logo}
+                    alt={`Partner ${index + 1}`}
+                    className="max-w-full max-h-full object-contain pointer-events-none"
+                  />
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
