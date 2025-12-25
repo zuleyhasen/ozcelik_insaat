@@ -1,9 +1,21 @@
 import { motion } from 'framer-motion';
 import { ShieldCheck } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useEffect, useState } from 'react';
 
 export function SafetyBand() {
   const { language } = useLanguage();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const content = {
     tr: {
@@ -27,7 +39,7 @@ export function SafetyBand() {
           backgroundImage: 'url("/images/ozcelik_insaat.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'scroll' // Fixed mobilde sorun çıkarabiliyor, scroll daha güvenli
+          backgroundAttachment: isMobile ? 'scroll' : 'fixed'
         }}
       >
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
