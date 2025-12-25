@@ -13,12 +13,22 @@ function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation 
     if (isHovered && project.gallery && project.gallery.length > 1) {
       interval = setInterval(() => {
         setCurrentImgIndex((prev) => (prev + 1) % project.gallery.length);
-      }, 2000);
+      }, 3000); // Biraz daha yavaşlattım ki manuel geçişle çakışmasın
     } else {
       setCurrentImgIndex(0);
     }
     return () => clearInterval(interval);
   }, [isHovered, project.gallery]);
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImgIndex((prev) => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImgIndex((prev) => (prev + 1) % project.gallery.length);
+  };
 
   return (
     <motion.div
@@ -43,6 +53,24 @@ function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation 
         </AnimatePresence>
         <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
         
+        {/* Manual Navigation Arrows - Visible on Hover */}
+        {project.gallery.length > 1 && (
+          <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+            <button
+              onClick={handlePrev}
+              className="p-1.5 bg-white/80 hover:bg-white rounded-full shadow-md text-black transition-all transform hover:scale-110"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={handleNext}
+              className="p-1.5 bg-white/80 hover:bg-white rounded-full shadow-md text-black transition-all transform hover:scale-110"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
+        )}
+
         {/* Progress Dots */}
         {project.gallery.length > 1 && (
           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
