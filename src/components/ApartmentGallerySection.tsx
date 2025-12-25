@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -15,6 +15,7 @@ const apartmentImages = [
 export function ApartmentGallerySection() {
   const { language } = useLanguage();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const handleNext = useCallback(() => {
     if (selectedImageIndex !== null) {
@@ -30,6 +31,17 @@ export function ApartmentGallerySection() {
     }
   }, [selectedImageIndex]);
 
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const { scrollLeft, clientWidth } = scrollRef.current;
+      const scrollTo = direction === 'left' 
+        ? scrollLeft - clientWidth / 2 
+        : scrollLeft + clientWidth / 2;
+      
+      scrollRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedImageIndex === null) return;
@@ -42,7 +54,7 @@ export function ApartmentGallerySection() {
   }, [selectedImageIndex, handleNext, handlePrev]);
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tighter text-foreground">
@@ -51,21 +63,43 @@ export function ApartmentGallerySection() {
           <div className="h-1 w-12 bg-accent mx-auto" />
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {apartmentImages.map((image, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 0.98 }}
-              onClick={() => setSelectedImageIndex(index)}
-              className="group cursor-pointer relative aspect-square overflow-hidden bg-muted rounded-sm border border-border/50"
-            >
-              <img
-                src={image}
-                alt={`Gallery ${index + 1}`}
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-            </motion.div>
-          ))}
+        <div className="relative group">
+          {/* Scroll Buttons */}
+          <button 
+            onClick={() => scroll('left')}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto gap-4 pb-8 scrollbar-hide snap-x snap-mandatory"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {apartmentImages.map((image, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.02 }}
+                onClick={() => setSelectedImageIndex(index)}
+                className="flex-none w-[calc(100%-2rem)] sm:w-[calc(50%-1rem)] md:w-[calc(33.333%-1rem)] lg:w-[calc(20%-1rem)] aspect-square cursor-pointer relative overflow-hidden bg-muted rounded-lg border border-border/50 snap-center"
+              >
+                <img
+                  src={image}
+                  alt={`Gallery ${index + 1}`}
+                  className="w-full h-full object-cover transition-all duration-500"
+                />
+                <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300" />
+              </motion.div>
+            ))}
+          </div>
+
+          <button 
+            onClick={() => scroll('right')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-background/80 p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"
+          >
+            <ChevronRight size={24} />
+          </button>
         </div>
       </div>
 
@@ -77,13 +111,11 @@ export function ApartmentGallerySection() {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12"
           >
-            {/* Şeffaf Arka Plan: bg-black/40 ve yoğun blur */}
             <div 
-              className="absolute inset-0 bg-black/40 backdrop-blur-md" 
+              className="absolute inset-0 bg-black/60 backdrop-blur-md" 
               onClick={() => setSelectedImageIndex(null)}
             />
 
-            {/* Galeri Penceresi */}
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -91,24 +123,21 @@ export function ApartmentGallerySection() {
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-5xl z-[110] flex items-center justify-center"
             >
-              {/* Kapat Butonu (Üst Sağda) */}
               <button
-                className="absolute -top-12 right-0 md:-right-12 text-foreground/60 hover:text-foreground transition-colors p-2"
+                className="absolute -top-12 right-0 md:-right-12 text-white/60 hover:text-white transition-colors p-2"
                 onClick={() => setSelectedImageIndex(null)}
               >
                 <X size={32} />
               </button>
 
-              {/* Sol Ok */}
               <button
                 onClick={handlePrev}
-                className="absolute -left-4 md:-left-20 p-2 text-foreground/40 hover:text-accent transition-all hover:scale-125"
+                className="absolute -left-4 md:-left-20 p-2 text-white/40 hover:text-accent transition-all hover:scale-125"
               >
                 <ChevronLeft size={48} strokeWidth={1} />
               </button>
 
-              {/* Ana Görsel Kutusu */}
-              <div className="w-full aspect-video md:aspect-[16/10] bg-background/80 shadow-2xl rounded-sm overflow-hidden border border-border flex items-center justify-center">
+              <div className="w-full aspect-video md:aspect-[16/10] bg-black/20 shadow-2xl rounded-lg overflow-hidden border border-white/10 flex items-center justify-center">
                 <AnimatePresence mode="wait">
                   <motion.img
                     key={selectedImageIndex}
@@ -117,21 +146,19 @@ export function ApartmentGallerySection() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}
                     transition={{ duration: 0.2 }}
-                    className="max-w-full max-h-full object-contain p-2"
+                    className="max-w-full max-h-full object-contain"
                   />
                 </AnimatePresence>
               </div>
 
-              {/* Sağ Ok */}
               <button
                 onClick={handleNext}
-                className="absolute -right-4 md:-right-20 p-2 text-foreground/40 hover:text-accent transition-all hover:scale-125"
+                className="absolute -right-4 md:-right-20 p-2 text-white/40 hover:text-accent transition-all hover:scale-125"
               >
                 <ChevronRight size={48} strokeWidth={1} />
               </button>
 
-              {/* Alt Bilgi */}
-              <div className="absolute -bottom-10 left-0 right-0 flex justify-between text-[10px] font-bold tracking-widest text-foreground/40 uppercase">
+              <div className="absolute -bottom-10 left-0 right-0 flex justify-between text-[10px] font-bold tracking-widest text-white/40 uppercase">
                 <span>{selectedImageIndex + 1} / {apartmentImages.length}</span>
                 <span className="hidden md:inline">ÖZÇELİK İNŞAAT - ÖRNEK DAİRE</span>
               </div>

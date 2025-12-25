@@ -3,6 +3,7 @@ import { HeroSection } from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { ApartmentGallerySection } from '@/components/ApartmentGallerySection';
+import { SafetyBand } from '@/components/SafetyBand';
 import { ServicesSection } from '@/components/ServicesSection';
 import { BrandsBand } from '@/components/BrandsBand';
 import { ContactSection } from '@/components/ContactSection';
@@ -29,6 +30,7 @@ export default function Home() {
         <AboutSection />
         <ProjectsSection />
         <ApartmentGallerySection />
+        <SafetyBand />
         <ServicesSection />
         <BrandsBand />
         <ContactSection />

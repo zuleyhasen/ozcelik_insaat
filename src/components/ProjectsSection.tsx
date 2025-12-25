@@ -244,17 +244,17 @@ export function ProjectsSection() {
                 </div>
 
                 {/* SAĞ: Proje Detayları */}
-                <div className="w-full md:w-2/5 lg:w-1/3 p-8 md:p-10 flex flex-col bg-card overflow-y-auto">
+                <div className="w-full md:w-2/5 lg:w-1/3 p-8 md:p-10 flex flex-col bg-card overflow-y-auto relative">
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="absolute top-4 right-4 p-2 hover:bg-zinc-100 rounded-full transition-colors z-10"
+                  >
+                    <X className="w-6 h-6 text-muted-foreground" />
+                  </button>
                   <div className="flex justify-between items-start mb-8">
                     <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 border-[#ff6b00]">
                       {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
                     </span>
-                    <button
-                      onClick={() => setSelectedProject(null)}
-                      className="p-1 hover:bg-zinc-100 rounded-full transition-colors"
-                    >
-                      <X className="w-6 h-6 text-muted-foreground" />
-                    </button>
                   </div>
 
                   <h2 className="text-3xl font-black text-foreground uppercase tracking-tighter leading-none mb-8">
