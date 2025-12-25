@@ -19,7 +19,7 @@ export function SafetyBand() {
   const currentContent = language === 'tr' ? content.tr : content.en;
 
   return (
-    <section className="relative h-[300px] md:h-[400px] flex items-center justify-center overflow-hidden">
+    <section className="relative h-[350px] md:h-[400px] flex items-center justify-center overflow-hidden">
       {/* Background Image with Parallax-like effect */}
       <div 
         className="absolute inset-0 z-0"
@@ -27,7 +27,7 @@ export function SafetyBand() {
           backgroundImage: 'url("/images/ozcelik_insaat.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
+          backgroundAttachment: 'scroll' // Fixed mobilde sorun çıkarabiliyor, scroll daha güvenli
         }}
       >
         <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
@@ -43,13 +43,13 @@ export function SafetyBand() {
         >
           <div className="flex justify-center mb-6">
             <div className="p-4 bg-accent/20 rounded-full backdrop-blur-sm border border-accent/30">
-              <ShieldCheck className="w-12 h-12 text-accent" />
+              <ShieldCheck className="w-10 h-10 md:w-12 md:h-12 text-accent" />
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-black mb-4 tracking-tighter uppercase">
+          <h2 className="text-2xl md:text-5xl font-black mb-4 tracking-tighter uppercase">
             {currentContent.title}
           </h2>
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto font-medium">
+          <p className="text-base md:text-xl text-white/80 max-w-2xl mx-auto font-medium px-4">
             {currentContent.subtitle}
           </p>
           <div className="mt-8 flex justify-center gap-2">

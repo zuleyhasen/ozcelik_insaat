@@ -13,20 +13,20 @@ function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation 
     if (isHovered && project.gallery && project.gallery.length > 1) {
       interval = setInterval(() => {
         setCurrentImgIndex((prev) => (prev + 1) % project.gallery.length);
-      }, 3000); // Biraz daha yavaşlattım ki manuel geçişle çakışmasın
+      }, 3000);
     } else {
       setCurrentImgIndex(0);
     }
     return () => clearInterval(interval);
   }, [isHovered, project.gallery]);
 
-  const handlePrev = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setCurrentImgIndex((prev) => (prev === 0 ? project.gallery.length - 1 : prev - 1));
   };
 
-  const handleNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setCurrentImgIndex((prev) => (prev + 1) % project.gallery.length);
   };
 
@@ -48,14 +48,20 @@ function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="w-full h-full object-contain"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragEnd={(_, info) => {
+              if (info.offset.x > 50) handlePrev();
+              else if (info.offset.x < -50) handleNext();
+            }}
+            className="w-full h-full object-contain touch-pan-y"
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
         
-        {/* Manual Navigation Arrows - Visible on Hover */}
+        {/* Manual Navigation Arrows - Visible on Hover (Desktop) */}
         {project.gallery.length > 1 && (
-          <div className="absolute inset-0 flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
+          <div className="absolute inset-0 hidden md:flex items-center justify-between px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
             <button
               onClick={handlePrev}
               className="p-1.5 bg-white/80 hover:bg-white rounded-full shadow-md text-black transition-all transform hover:scale-110"
