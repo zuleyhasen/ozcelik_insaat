@@ -16,14 +16,14 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 bg-background/15 backdrop-blur-md shadow-lg ">
-      <nav className="container mx-auto px-6 py-8">
-        <div className="flex items-center justify-between h-3">
+      <nav className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between h-5">
           {/* Logo - Hedef projedeki gibi büyük ve net */}
           <motion.a 
             href="/"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-2xl md:text-3xl font-black tracking-tighter"
+            className="text-xl md:text-2xl font-black tracking-tighter"
           >
             ÖZÇELİK İNŞAAT
           </motion.a>
@@ -39,7 +39,7 @@ export function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-lg font-bold uppercase tracking-widest hover:text-primary transition-colors duration-300"
+                  className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors duration-300"
                   style={{ transitionDelay: `${idx * 50}ms` }}
                 >
                   {item.label}

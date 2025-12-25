@@ -59,11 +59,11 @@ export function HeroSection() {
         <div className="overflow-hidden mb-2">
           <h1
             ref={titleRef}
-            className="flex flex-col items-center text-[10vw] md:text-[7rem] font-black text-white leading-[1.1] tracking-tighter uppercase drop-shadow-2xl pt-16 pb-10 -mt-16"
+            className="flex flex-col items-center text-[8vw] md:text-[5rem] font-black text-white leading-[1.1] tracking-tighter uppercase drop-shadow-2xl pt-12 pb-8 -mt-12"
           >
             {t.hero.headline}
 
-            <span className="text-[4vw] md:text-4xl font-light tracking-[0.2em] text-gray-300 mt-2 pt-4 pb-4 -mt-4">
+            <span className="text-[3vw] md:text-2xl font-light tracking-[0.2em] text-gray-300 mt-2 pt-3 pb-3 -mt-3">
               {t.hero.headline2}
             </span>
           </h1>
@@ -73,7 +73,7 @@ export function HeroSection() {
         <div className="overflow-hidden mb-10">
           <p
             ref={subtitleRef}
-            className="text-lg md:text-2xl text-gray-200 max-w-3xl mx-auto font-medium tracking-wide pt-8 pb-4 -mt-8"
+            className="text-md md:text-xl text-gray-200 max-w-2xl mx-auto font-medium tracking-wide pt-6 pb-3 -mt-6"
           >
             {t.hero.subheading}
           </p>
@@ -83,7 +83,7 @@ export function HeroSection() {
           {/* Ana Buton: Turuncu ve Kıvrımlı */}
           <a
             href="#projects"
-            className="px-10 py-4 bg-[#ff6b00] hover:bg-[#e66000] text-white font-bold uppercase tracking-wider text-sm rounded-full transition-all duration-300 shadow-lg hover:shadow-orange-500/20 active:scale-95"
+            className="px-8 py-3 bg-[#ff6b00] hover:bg-[#e66000] text-white font-bold uppercase tracking-wider text-xs rounded-full transition-all duration-300 shadow-lg hover:shadow-orange-500/20 active:scale-95"
           >
             {t.hero.cta1}
           </a>
@@ -91,7 +91,7 @@ export function HeroSection() {
           {/* İkincil Buton: Şeffaf, Beyaz Kenarlıklı ve Kıvrımlı */}
           <a
             href="#contact"
-            className="px-10 py-4 border-2 border-white/80 text-white font-bold uppercase tracking-wider text-sm rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm active:scale-95"
+            className="px-8 py-3 border-2 border-white/80 text-white font-bold uppercase tracking-wider text-xs rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm active:scale-95"
           >
             {t.hero.cta2}
           </a>
