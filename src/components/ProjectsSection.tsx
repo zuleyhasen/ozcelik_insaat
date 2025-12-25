@@ -1,33 +1,45 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { projects } from '@/data/projects';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'; 
+import useEmblaCarousel from 'embla-carousel-react';
 
 function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation }: any) {
-  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 });
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setCurrentIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    emblaApi.on('reInit', onSelect);
+  }, [emblaApi, onSelect]);
 
   useEffect(() => {
     let interval: any;
-    if (isHovered && project.gallery && project.gallery.length > 1) {
+    if (isHovered && emblaApi && project.gallery && project.gallery.length > 1) {
       interval = setInterval(() => {
-        setCurrentImgIndex((prev) => (prev + 1) % project.gallery.length);
+        emblaApi.scrollNext();
       }, 3000);
-    } else {
-      setCurrentImgIndex(0);
     }
     return () => clearInterval(interval);
-  }, [isHovered, project.gallery]);
+  }, [isHovered, emblaApi, project.gallery]);
 
   const handlePrev = (e?: React.MouseEvent) => {
     e?.stopPropagation();
-    setCurrentImgIndex((prev) => (prev === 0 ? project.gallery.length - 1 : prev - 1));
+    emblaApi?.scrollPrev();
   };
 
   const handleNext = (e?: React.MouseEvent) => {
     e?.stopPropagation();
-    setCurrentImgIndex((prev) => (prev + 1) % project.gallery.length);
+    emblaApi?.scrollNext();
   };
 
   return (
@@ -37,26 +49,23 @@ function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation 
       onMouseLeave={() => setIsHovered(false)}
       className="group cursor-pointer rounded-lg overflow-hidden bg-card border border-border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full relative"
     >
-      {/* Project Image */}
+      {/* Project Image Slider */}
       <div className="relative h-80 overflow-hidden bg-gray-50 flex-shrink-0">
-        <AnimatePresence mode="wait">
-          <motion.img
-            key={currentImgIndex}
-            src={project.gallery[currentImgIndex]}
-            alt={getProjectTitle(project)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            onDragEnd={(_, info) => {
-              if (info.offset.x > 50) handlePrev();
-              else if (info.offset.x < -50) handleNext();
-            }}
-            className="w-full h-full object-contain touch-pan-y"
-          />
-        </AnimatePresence>
+        <div className="overflow-hidden h-full" ref={emblaRef}>
+          <div className="flex h-full">
+            {project.gallery.map((img: string, index: number) => (
+              <div key={index} className="flex-[0_0_100%] min-w-0 h-full relative">
+                <img
+                  src={img}
+                  alt={`${getProjectTitle(project)} - ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        
         <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-300 pointer-events-none" />
         
         {/* Manual Navigation Arrows - Visible on Hover (Desktop) */}
@@ -84,7 +93,7 @@ function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation 
               <div 
                 key={idx} 
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === currentImgIndex ? 'w-4 bg-accent' : 'w-1.5 bg-white/50'
+                  idx === currentIndex ? 'w-4 bg-accent' : 'w-1.5 bg-white/50'
                 }`}
               />
             ))}
@@ -282,51 +291,51 @@ export function ProjectsSection() {
                       <button
                         key={idx}
                         onClick={() => setSelectedImageIndex(idx)}
-                        className={`relative flex-shrink-0 w-20 h-16 rounded-md overflow-hidden border-2 transition-all ${selectedImageIndex === idx ? 'border-[#ff6b00] scale-105' : 'border-transparent opacity-60 hover:opacity-100'
-                          }`}
+                        className={`relative flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${
+                          idx === selectedImageIndex ? 'border-accent scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
+                        }`}
                       >
-                        <img src={img} className="w-full h-full object-cover" alt="thumbnail" />
+                        <img src={img} alt="" className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
                 </div>
 
-                {/* SAĞ: Proje Detayları */}
-                <div className="w-full md:w-2/5 lg:w-1/3 p-8 md:p-10 flex flex-col bg-card overflow-y-auto relative">
-                  {/* Desktop Close Button - Hidden on mobile */}
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="hidden md:block absolute top-4 right-4 p-2 hover:bg-zinc-100 rounded-full transition-colors z-10"
-                  >
-                    <X className="w-6 h-6 text-muted-foreground" />
-                  </button>
-                  <div className="flex justify-between items-start mb-8">
-                    <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 border-[#ff6b00]">
+                <div className="w-full md:w-2/5 lg:w-1/3 p-8 flex flex-col bg-card">
+                  <div className="flex justify-between items-start mb-6">
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="hidden md:block p-2 hover:bg-secondary rounded-full transition-colors"
+                    >
+                      <X className="w-6 h-6" />
+                    </button>
+                    <div className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                       {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
-                    </span>
+                    </div>
                   </div>
 
-                  <h2 className="text-3xl font-black text-foreground uppercase tracking-tighter leading-none mb-8">
+                  <h2 className="text-3xl font-bold mb-4 text-foreground leading-tight">
                     {getProjectTitle(selectedProject)}
                   </h2>
 
-                  <div className="space-y-6 pt-6 border-t border-border">
-                    <div className="flex flex-col gap-1">
-                      <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
+                  <div className="space-y-6 mb-8">
+                    <div>
+                      <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">
                         {t.projects.location}
-                      </h3>
-                      <p className="text-lg font-bold text-foreground">
+                      </h4>
+                      <p className="text-foreground flex items-center">
+                        <span className="w-2 h-2 bg-accent rounded-full mr-2" />
                         {selectedProject.detailedLocation}
                       </p>
                     </div>
+                  </div>
 
-                    <div className="flex flex-col gap-1">
-                      <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
-                        Görsel Sayısı
-                      </h3>
-                      <p className="text-sm font-medium">
-                        {selectedImageIndex + 1} / {selectedProject.gallery.length}
-                      </p>
+                  <div className="mt-auto pt-6 border-t border-border flex justify-between items-center">
+                    <div className="text-sm font-medium text-muted-foreground">
+                      {selectedImageIndex + 1} / {selectedProject.gallery.length}
+                    </div>
+                    <div className="text-[10px] font-bold tracking-tighter text-muted-foreground/30 uppercase">
+                      Özçelik İnşaat
                     </div>
                   </div>
                 </div>

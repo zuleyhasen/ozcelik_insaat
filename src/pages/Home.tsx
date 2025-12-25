@@ -29,8 +29,8 @@ export default function Home() {
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
-        <ApartmentGallerySection />
         <SafetyBand />
+        <ApartmentGallerySection />
         <ServicesSection />
         <BrandsBand />
         <ContactSection />
