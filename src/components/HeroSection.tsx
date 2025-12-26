@@ -42,15 +42,26 @@ export function HeroSection() {
 
   return (
     <section ref={heroRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Background Image with Parallax Style */}
+      {/* Background Video with Parallax Style */}
       <div className="absolute inset-0 z-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center scale-110"
-          style={{
-            backgroundImage: 'url(/images/hero-construction.png)',
-            filter: 'brightness(0.4)'
-          }}
-        />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover scale-110"
+          style={{ filter: 'brightness(0.4)' }}
+        >
+          <source src="/images/hero-background.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage: 'url(/images/hero-construction.png)',
+              filter: 'brightness(0.4)'
+            }}
+          />
+        </video>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
       </div>
 
