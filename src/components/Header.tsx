@@ -33,7 +33,7 @@ export function Header() {
             <img 
               src="/images/logo.png" 
               alt="ÖZÇELİK İNŞAAT" 
-              className="h-12 md:h-16 w-auto object-contain brightness-0 invert"
+              className="h-16 md:h-16 w-auto object-contain "
             />
           </motion.a>
 

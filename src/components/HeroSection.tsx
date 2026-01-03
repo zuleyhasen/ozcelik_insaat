@@ -77,35 +77,21 @@ export function HeroSection() {
       </div>
 
       {/* Content - Sol Alt ve Sağ Alt Yerleşim */}
-      <div className="relative z-10 w-full h-full container mx-auto px-6 md:px-12 flex flex-col justify-end pb-20 md:pb-24">
+      <div className="relative z-10 w-full h-full container mx-auto px-10 md:px-12 flex flex-col justify-end pb-20 md:pb-24">
         <div className="flex flex-col md:flex-row items-end justify-between gap-8">
           
           {/* Sol Alt: Yazı ve Butonlar */}
           <div className="flex flex-col items-start gap-6 max-w-xl">
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-white"
-            >
-              <h2 className="text-2xl md:text-4xl font-bold uppercase tracking-tighter leading-tight">
-                Özçelik İnşaat
-              </h2>
-              <p className="text-sm md:text-lg font-medium text-gray-200 mt-2 uppercase tracking-widest">
-                Geleceği İnşa Ediyoruz
-              </p>
-            </motion.div>
-
-            <div ref={ctaRef} className="flex gap-4 flex-wrap">
+            <div ref={ctaRef} className="flex gap-4 flex-nowrap items-center">
               <a
                 href="#projects"
-                className="px-6 py-3 bg-[#ff6b00] hover:bg-[#e66000] text-white font-bold uppercase tracking-wider text-xs rounded-full transition-all duration-300 shadow-lg active:scale-95"
+                className="px-10 py-5 bg-[#ff6b00] hover:bg-[#e66000] text-black font-bold uppercase tracking-wider text-md rounded-full transition-all duration-300 shadow-lg active:scale-95"
               >
                 {t.hero.cta1}
               </a>
               <a
                 href="#contact"
-                className="px-6 py-3 border-2 border-white/80 text-white font-bold uppercase tracking-wider text-xs rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm active:scale-95"
+                className="px-10 py-5 border-2 border-white/80 text-black font-bold uppercase tracking-wider text-md rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm active:scale-95"
               >
                 {t.hero.cta2}
               </a>
@@ -119,7 +105,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-right hidden md:block"
           >
-            <p className="text-white text-sm font-bold uppercase tracking-[0.3em] opacity-80">
+            <p className="text-black text-xl font-bold uppercase tracking-[0.3em] opacity-80">
               Modern Mimari & Güvenli Yapılar
             </p>
           </motion.div>
@@ -128,7 +114,7 @@ export function HeroSection() {
 
       {/* Scroll Indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 black"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
