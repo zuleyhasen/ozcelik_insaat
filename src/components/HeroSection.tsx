@@ -54,7 +54,7 @@ export function HeroSection() {
   return (
     <section ref={heroRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-zinc-100">
       {/* Background Video - Tam görünürlük için filtre kaldırıldı */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 hero-video-container">
         <video
           ref={videoRef}
           autoPlay
@@ -72,6 +72,7 @@ export function HeroSection() {
             });
           }}
         >
+          <source src="/images/hero-mobile.mp4" type="video/mp4" />
           <source src="/images/hero-background.mp4" type="video/mp4" />
         </video>
         {/* Overlay for better readability if needed, but keeping it minimal as requested */}
