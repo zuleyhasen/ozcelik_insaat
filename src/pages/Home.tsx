@@ -8,18 +8,7 @@ import { ServicesSection } from '@/components/ServicesSection';
 import { BrandsBand } from '@/components/BrandsBand';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
-
-/**
- * HOME PAGE - Özçelik İnşaat Website
- * 
- * Design Philosophy: Modern Minimalism with Construction Authenticity
- * - Clean, professional layout with asymmetric sections
- * - Generous whitespace and clear hierarchy
- * - Subtle animations that support content flow
- * - Construction-inspired custom icons and elements
- * - Warm amber accents (#d97706) representing materials and progress
- * - Deep slate primary color (#1a2332) for trust and professionalism
- */
+import { WhatsAppButton } from '@/components/WhatsAppButton';
 
 export default function Home() {
   return (
@@ -36,6 +25,7 @@ export default function Home() {
         <ContactSection />
       </main>
       <Footer />
+      <WhatsAppButton />
     </div>
   );
 }
