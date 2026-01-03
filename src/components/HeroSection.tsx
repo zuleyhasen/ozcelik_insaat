@@ -52,7 +52,7 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section ref={heroRef} className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-zinc-100">
       {/* Background Video - Tam görünürlük için filtre kaldırıldı */}
       <div className="absolute inset-0 z-0">
         <video
@@ -61,7 +61,9 @@ export function HeroSection() {
           muted
           loop
           playsInline
-          preload="metadata"
+          webkit-playsinline="true"
+          preload="auto"
+          poster="/images/hero-construction.webp"
           className="absolute inset-0 w-full h-full object-cover"
           onLoadedMetadata={(e) => {
             const video = e.currentTarget;

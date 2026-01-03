@@ -2,10 +2,10 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const partnerLogos = [
-  '/images/partners/kutahya.png',
-  '/images/partners/camsan.png',
-  '/images/partners/winsa.png',
-  '/images/partners/firatpen.png',
+  '/images/partners/kutahya.webp',
+  '/images/partners/camsan.webp',
+  '/images/partners/winsa.webp',
+  '/images/partners/firatpen.webp',
 ];
 
 export function BrandsBand() {
@@ -54,6 +54,7 @@ export function BrandsBand() {
                     src={logo}
                     alt={`Partner ${index}`}
                     className="max-w-full max-h-full object-contain pointer-events-none transition-all"
+                    loading="lazy"
                   />
                 </div>
               ))}

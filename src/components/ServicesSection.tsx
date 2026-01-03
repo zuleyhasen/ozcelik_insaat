@@ -86,9 +86,10 @@ export function ServicesSection() {
               className="rounded-lg overflow-hidden shadow-2xl"
             >
               <img
-                src="/images/construction-workers.jpg"
+                src="/images/construction-workers.webp"
                 alt="Construction Workers"
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </motion.div>
 

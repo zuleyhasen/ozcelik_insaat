@@ -19,8 +19,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '3033. Sokak, No:9, Esenyurt, İstanbul',
-    image: '/images/projects/project1/1.png',
-    gallery: ['/images/projects/project1/1.png', '/images/projects/project1/1-1.jpeg', '/images/projects/project1/1-2.jpeg', '/images/projects/project1/1-3.jpeg'],
+    image: '/images/projects/project1/1.webp',
+    gallery: ['/images/projects/project1/1.webp', '/images/projects/project1/1-1.webp', '/images/projects/project1/1-2.webp', '/images/projects/project1/1-3.webp'],
   },
   {
     id: 2,
@@ -30,8 +30,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '3031. Sokak, No:8, Esenyurt, İstanbul',
-    image: '/images/projects/project2/2.png',
-    gallery: ['/images/projects/project2/2.png', '/images/projects/project2/2-1.jpeg', '/images/projects/project2/2-2.jpeg'],
+    image: '/images/projects/project2/2.webp',
+    gallery: ['/images/projects/project2/2.webp', '/images/projects/project2/2-1.webp', '/images/projects/project2/2-2.webp'],
   },
   {
     id: 3,
@@ -41,8 +41,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '3031. Sokak, No:15, Esenyurt, İstanbul',
-    image: '/images/projects/project3/3.png',
-    gallery: ['/images/projects/project3/3.png', '/images/projects/project3/3-1.jpeg', '/images/projects/project3/3-2.jpeg'],
+    image: '/images/projects/project3/3.webp',
+    gallery: ['/images/projects/project3/3.webp', '/images/projects/project3/3-1.webp', '/images/projects/project3/3-2.webp'],
   },
   {
     id: 4,
@@ -52,8 +52,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: 'Ertuğrul Gazi Caddesi, No:35B, Esenyurt, İstanbul',
-    image: '/images/projects/project4/4.png',
-    gallery: ['/images/projects/project4/4.png', '/images/projects/project4/4-1.jpeg', '/images/projects/project4/4-2.jpeg'],
+    image: '/images/projects/project4/4.webp',
+    gallery: ['/images/projects/project4/4.webp', '/images/projects/project4/4-1.webp', '/images/projects/project4/4-2.webp'],
   },
   {
     id: 5,
@@ -63,8 +63,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: 'Halil Fahri Orman Caddesi, No:60C, Esenyurt, İstanbul',
-    image: '/images/projects/project5/5.png',
-    gallery: ['/images/projects/project5/5.png', '/images/projects/project5/5-1.jpeg', '/images/projects/project5/5-2.jpeg'],
+    image: '/images/projects/project5/5.webp',
+    gallery: ['/images/projects/project5/5.webp', '/images/projects/project5/5-1.webp', '/images/projects/project5/5-2.webp'],
   },
   {
     id: 6,
@@ -74,8 +74,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '3002. Sokak, No:53, Esenyurt, İstanbul',
-    image: '/images/projects/project6/6.png',
-    gallery: ['/images/projects/project6/6.png', '/images/projects/project6/6-1.jpeg', '/images/projects/project6/6-2.jpeg'],
+    image: '/images/projects/project6/6.webp',
+    gallery: ['/images/projects/project6/6.webp', '/images/projects/project6/6-1.webp', '/images/projects/project6/6-2.webp'],
   },
   {
     id: 7,
@@ -85,8 +85,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '3013. Sokak, No:18, Esenyurt, İstanbul',
-    image: '/images/uncomplite_projects/1.png',
-    gallery: ['/images/uncomplite_projects/1.png', '/images/ongoing-project.jpg'],
+    image: '/images/uncomplite_projects/1.webp',
+    gallery: ['/images/uncomplite_projects/1.webp'],
   },
   {
     id: 8,
@@ -96,8 +96,8 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '868. Sokak, No:10, Esenyurt, İstanbul',
-    image: '/images/uncomplite_projects/2.png',
-    gallery: ['/images/uncomplite_projects/2.png', '/images/hero-construction.jpg'],
+    image: '/images/uncomplite_projects/2.webp',
+    gallery: ['/images/uncomplite_projects/2.webp', '/images/hero-construction.webp'],
   },
 ];
 

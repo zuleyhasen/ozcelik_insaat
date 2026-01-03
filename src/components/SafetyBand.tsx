@@ -36,7 +36,7 @@ export function SafetyBand() {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url("/images/ozcelik_insaat.png")',
+          backgroundImage: 'url("/images/ozcelik_insaat.webp")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: isMobile ? 'scroll' : 'fixed'

@@ -31,7 +31,7 @@ export function Header() {
             className="flex items-center"
           >
             <img 
-              src="/images/logo.png" 
+              src="/images/logo.webp" 
               alt="ÖZÇELİK İNŞAAT" 
               className="h-16 md:h-16 w-auto object-contain "
             />

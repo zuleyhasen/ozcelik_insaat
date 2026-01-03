@@ -4,12 +4,12 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const apartmentImages = [
-  '/images/ornek_daire/1.jpeg', '/images/ornek_daire/2.jpeg', '/images/ornek_daire/3.jpeg',
-  '/images/ornek_daire/4.jpeg', '/images/ornek_daire/5.jpeg', '/images/ornek_daire/6.jpeg',
-  '/images/ornek_daire/7.jpeg', '/images/ornek_daire/8.jpeg', '/images/ornek_daire/9.jpeg',
-  '/images/ornek_daire/10.jpeg', '/images/ornek_daire/11.jpeg', '/images/ornek_daire/12.jpeg',
-  '/images/ornek_daire/13.jpeg', '/images/ornek_daire/14.jpeg', '/images/ornek_daire/15.jpeg',
-  '/images/ornek_daire/16.jpeg',
+  '/images/ornek_daire/1.webp', '/images/ornek_daire/2.webp', '/images/ornek_daire/3.webp',
+  '/images/ornek_daire/4.webp', '/images/ornek_daire/5.webp', '/images/ornek_daire/6.webp',
+  '/images/ornek_daire/7.webp', '/images/ornek_daire/8.webp', '/images/ornek_daire/9.webp',
+  '/images/ornek_daire/10.webp', '/images/ornek_daire/11.webp', '/images/ornek_daire/12.webp',
+  '/images/ornek_daire/13.webp', '/images/ornek_daire/14.webp', '/images/ornek_daire/15.webp',
+  '/images/ornek_daire/16.webp',
 ];
 
 export function ApartmentGallerySection() {
