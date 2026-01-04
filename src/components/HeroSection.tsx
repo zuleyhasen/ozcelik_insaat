@@ -21,12 +21,10 @@ export function HeroSection() {
     return () => ctx.revert();
   }, []);
 
-  // iOS ve Android için otomatik oynatma garantisi
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // iOS düşük güç modunda otomatik oynatma engellenebilir, bu yüzden catch ekliyoruz
     const attemptPlay = () => {
       video.play().catch(() => {
         console.log("Otomatik oynatma engellendi, etkileşim bekleniyor.");
@@ -34,8 +32,6 @@ export function HeroSection() {
     };
 
     attemptPlay();
-    
-    // Kullanıcı ekrana dokunduğu anda (eğer engellenmişse) başlat
     document.addEventListener('touchstart', attemptPlay, { once: true });
     return () => document.removeEventListener('touchstart', attemptPlay);
   }, []);
@@ -53,21 +49,18 @@ export function HeroSection() {
           muted
           loop
           playsInline
-          webkit-playsinline="true" // iOS için kritik
+          webkit-playsinline="true"
           controls={false}
           disablePictureInPicture
           preload="auto"
           className="w-full h-full object-cover pointer-events-none"
-          // iOS'ta çıkan oynatma işaretini CSS seviyesinde engellemek için
           style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} 
         >
-          {/* Mobil Video (9:16) - Ekran 768px'den küçükse bu aktif olur */}
           <source 
             src="/images/hero-backgroundMobile.mp4" 
             type="video/mp4" 
             media="(max-width: 767px)" 
           />
-          {/* Masaüstü Video (16:9) */}
           <source 
             src="/images/hero-background.mp4" 
             type="video/mp4" 
@@ -75,8 +68,8 @@ export function HeroSection() {
           />
         </video>
 
-        {/* Overlay - Videonun üzerine metinlerin okunması için hafif karartma */}
-        <div className="absolute inset-0 bg-black/30 z-[1]" />
+        {/* GRADIENT OVERLAY (Aşağı doğru kararma) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80 z-[1]" />
       </div>
 
       {/* CONTENT */}
@@ -85,13 +78,13 @@ export function HeroSection() {
           <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
             <a
               href="#projects"
-              className="px-10 py-5 bg-[#ff6b00] text-black font-bold rounded-full text-center active:scale-95 transition-transform"
+              className="px-10 py-5 bg-[#ff6b00] text-black font-bold rounded-full text-center active:scale-95 transition-all hover:bg-[#e66000]"
             >
               {t.hero.cta1}
             </a>
             <a
               href="#contact"
-              className="px-10 py-5 border-2 border-white text-white font-bold rounded-full text-center active:scale-95 transition-transform"
+              className="px-10 py-5 border-2 border-white text-white font-bold rounded-full text-center active:scale-95 transition-all hover:bg-white/10"
             >
               {t.hero.cta2}
             </a>
@@ -110,7 +103,7 @@ export function HeroSection() {
 
       {/* SCROLL ICON */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 z-10"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white z-10"
         animate={{ y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
       >
