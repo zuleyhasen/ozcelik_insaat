@@ -85,11 +85,11 @@ export const projects: Project[] = [
     locationTr: 'Büyükçekmece, İstanbul',
     locationEn: 'Büyükçekmece, Istanbul',
     detailedLocation: 'Kamiloba Mh, Boğaziçi Cd., Büyükçekmece/İstanbul',
-    image: '/images/projects/project0/0-1.jpeg',
+    image: '/images/projects/project0/0-1.webp',
     gallery: [
-      '/images/projects/project0/0-1.jpeg',
-      '/images/projects/project0/0-2.jpeg',
-      '/images/projects/project0/0-3.jpeg'
+      '/images/projects/project0/0-1.webp',
+      '/images/projects/project0/0-2.webp',
+      '/images/projects/project0/0-3.webp'
     ],
   },
   {
