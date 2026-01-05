@@ -96,7 +96,7 @@ export function HeroSection() {
             transition={{ delay: 0.4 }}
             className="hidden md:block text-white font-bold tracking-[0.3em] uppercase text-sm"
           >
-            Modern Mimari & Güvenli Yapılar
+            {t.hero.badge}
           </motion.p>
         </div>
       </div>
