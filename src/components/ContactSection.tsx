@@ -97,7 +97,7 @@ export function ContactSection() {
             >
               <iframe
                 title="Özçelik Yapı Konum"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.085025707746!2d28.6791668!3d41.0014813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa11796e9cf97%3A0xd5c5ba83d7a8838e!2zWcO8Y2V2bGVyLCBCYWhjZSBZb2x1IENkLiBubzo0NlxCLCAzNDUwMCBFc2VueXVydC_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.085025707746!2d28.6791668!3d41.0014813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa11796e9cf97%3A0xd5c5ba83d7a8838e!2zWcO8Y2V2bGVyLCBCYWhjZSBZb2x1IENkLiBubzo0NlxCLCAzNDUwMCBFc2VueXVydC_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1736070000000!5m2!1str!2str"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

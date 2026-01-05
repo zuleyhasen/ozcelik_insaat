@@ -82,6 +82,7 @@ export const projects: Project[] = [
     titleTr: 'Villa Projesi',
     titleEn: 'Villa Project',
     status: 'completed',
+<<<<<<< HEAD
     locationTr: 'Büyükçekmece, İstanbul',
     locationEn: 'Büyükçekmece, Istanbul',
     detailedLocation: 'Kamiloba Mh, Boğaziçi Cd., Büyükçekmece/İstanbul',
@@ -90,6 +91,16 @@ export const projects: Project[] = [
       '/images/projects/project0/0-1.jpeg',
       '/images/projects/project0/0-2.jpeg',
       '/images/projects/project0/0-3.jpeg'
+=======
+    locationTr: 'Esenyurt, İstanbul',
+    locationEn: 'Esenyurt, Istanbul',
+    detailedLocation: 'Esenyurt, İstanbul',
+    image: '/images/projects/project0/0-1.webp',
+    gallery: [
+      '/images/projects/project0/0-1.webp',
+      '/images/projects/project0/0-2.webp',
+      '/images/projects/project0/0-3.webp'
+>>>>>>> 1148c4af9277192344a3448eff5cab2475f81fd9
     ],
   },
   {
