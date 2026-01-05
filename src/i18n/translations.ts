@@ -51,6 +51,11 @@ export const translations = {
       subtitle: 'Projeleriniz hakkında bize yazın, en kısa sürede sizinle iletişime geçeceğiz.',
       address: 'Adres',
       phone: 'Telefon',
+      phones: [
+        '0535 256 38 77',
+        '0537 012 74 25',
+        '0553 734 89 25'
+      ],
       email: 'E-posta',
       hours: 'Çalışma Saatleri',
       mondayFriday: 'Pazartesi - Cuma: 08:00 - 18:00',
@@ -136,6 +141,11 @@ export const translations = {
       subtitle: 'Tell us about your projects, and we will contact you as soon as possible.',
       address: 'Address',
       phone: 'Phone',
+      phones: [
+        '0535 256 38 77',
+        '0537 012 74 25',
+        '0553 734 89 25'
+      ],
       email: 'Email',
       hours: 'Working Hours',
       mondayFriday: 'Monday - Friday: 08:00 - 18:00',

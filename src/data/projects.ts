@@ -78,6 +78,21 @@ export const projects: Project[] = [
     gallery: ['/images/projects/project6/6.webp', '/images/projects/project6/6-1.webp', '/images/projects/project6/6-2.webp'],
   },
   {
+    id: 0,
+    titleTr: 'Proje 0',
+    titleEn: 'Project 0',
+    status: 'completed',
+    locationTr: 'Esenyurt, İstanbul',
+    locationEn: 'Esenyurt, Istanbul',
+    detailedLocation: 'Esenyurt, İstanbul',
+    image: '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40.jpeg',
+    gallery: [
+      '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40.jpeg',
+      '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40 (1).jpeg',
+      '/images/projects/project0/WhatsApp Image 2026-01-04 at 13.29.33.jpeg'
+    ],
+  },
+  {
     id: 7,
     titleTr: 'Devam Eden Proje - Modern Apartman Projesi',
     titleEn: 'Ongoing Project - Modern Apartment Building',

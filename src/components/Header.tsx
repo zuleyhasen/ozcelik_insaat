@@ -11,18 +11,19 @@ export function Header() {
   const menuItems = [
     { label: t.nav.about, href: '#about', id: 'about' },
     { label: t.nav.projects, href: '#projects', id: 'projects' },
+    { label: t.footer.services, href: '#services', id: 'services' },
     { label: t.nav.contact, href: '#contact', id: 'contact' },
   ];
 
   const socialLinks = [
     { icon: <Instagram size={20} />, href: "https://instagram.com/ozcelikinsaat", label: "Instagram" },
-    { icon: <MessageCircle size={20} />, href: "https://wa.me/905000000000", label: "WhatsApp" },
+    { icon: <MessageCircle size={20} />, href: "https://wa.me/905352563877", label: "WhatsApp" },
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-background/15 backdrop-blur-md shadow-lg ">
-      <nav className="container mx-auto px-4 py-2">
-        <div className="flex items-center justify-between h-12 md:h-16">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-b border-zinc-100 shadow-sm">
+      <nav className="container mx-auto px-4 py-3">
+        <div className="flex items-center justify-between h-14 md:h-20">
           {/* Logo */}
           <motion.a 
             href="/"
@@ -31,9 +32,9 @@ export function Header() {
             className="flex items-center"
           >
             <img 
-              src="/images/logo.webp" 
+              src="/images/logo.png" 
               alt="ÖZÇELİK İNŞAAT" 
-              className="h-16 md:h-16 w-auto object-contain "
+              className="h-12 md:h-16 w-auto object-contain brightness-110 contrast-110"
             />
           </motion.a>
 
@@ -48,7 +49,7 @@ export function Header() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors duration-300"
+                  className="text-sm font-black uppercase tracking-[0.15em] text-zinc-800 hover:text-primary transition-colors duration-300"
                   style={{ transitionDelay: `${idx * 50}ms` }}
                 >
                   {item.label}
@@ -57,7 +58,7 @@ export function Header() {
             </motion.div>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-4 border-l border-black/20 pl-6">
+            <div className="flex items-center gap-4 border-l border-zinc-200 pl-6">
               {socialLinks.map((link) => (
                 <a
                   key={link.label}
@@ -84,7 +85,7 @@ export function Header() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white"
+                className="text-zinc-800"
                 aria-label={link.label}
               >
                 {link.icon}
@@ -92,7 +93,7 @@ export function Header() {
             ))}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white p-2"
+              className="text-zinc-800 p-2"
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
