@@ -31,7 +31,7 @@ export const projects: Project[] = [
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '3031. Sokak, No:8, Esenyurt, İstanbul',
     image: '/images/projects/project2/2.webp',
-    gallery: ['/images/projects/project2/2.webp', '/images/projects/project2/2-1.webp', '/images/projects/project2/2-2.webp'],
+    gallery: ['/images/projects/project2/2.webp'],
   },
   {
     id: 3,
@@ -42,7 +42,7 @@ export const projects: Project[] = [
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: '3031. Sokak, No:15, Esenyurt, İstanbul',
     image: '/images/projects/project3/3.webp',
-    gallery: ['/images/projects/project3/3.webp', '/images/projects/project3/3-1.webp', '/images/projects/project3/3-2.webp'],
+    gallery: ['/images/projects/project3/3.webp'],
   },
   {
     id: 4,
@@ -79,17 +79,17 @@ export const projects: Project[] = [
   },
   {
     id: 0,
-    titleTr: 'Proje 0',
-    titleEn: 'Project 0',
+    titleTr: 'Villa Projesi',
+    titleEn: 'Villa Project',
     status: 'completed',
-    locationTr: 'Esenyurt, İstanbul',
-    locationEn: 'Esenyurt, Istanbul',
-    detailedLocation: 'Esenyurt, İstanbul',
-    image: '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40.jpeg',
+    locationTr: 'Büyükçekmece, İstanbul',
+    locationEn: 'Büyükçekmece, Istanbul',
+    detailedLocation: 'Kamiloba Mh, Boğaziçi Cd., Büyükçekmece/İstanbul',
+    image: '/images/projects/project0/0-1.jpeg',
     gallery: [
-      '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40.jpeg',
-      '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40 (1).jpeg',
-      '/images/projects/project0/WhatsApp Image 2026-01-04 at 13.29.33.jpeg'
+      '/images/projects/project0/0-1.jpeg',
+      '/images/projects/project0/0-2.jpeg',
+      '/images/projects/project0/0-3.jpeg'
     ],
   },
   {
