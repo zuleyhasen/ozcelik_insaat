@@ -85,11 +85,11 @@ export const projects: Project[] = [
     locationTr: 'Esenyurt, İstanbul',
     locationEn: 'Esenyurt, Istanbul',
     detailedLocation: 'Esenyurt, İstanbul',
-    image: '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40.jpeg',
+    image: '/images/projects/project0/0-1.webp',
     gallery: [
-      '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40.jpeg',
-      '/images/projects/project0/WhatsApp Image 2025-12-30 at 17.57.40 (1).jpeg',
-      '/images/projects/project0/WhatsApp Image 2026-01-04 at 13.29.33.jpeg'
+      '/images/projects/project0/0-1.webp',
+      '/images/projects/project0/0-2.webp',
+      '/images/projects/project0/0-3.webp'
     ],
   },
   {
