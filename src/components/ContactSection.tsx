@@ -73,9 +73,13 @@ export function ContactSection() {
               <div className="grid sm:grid-cols-2 gap-10">
                 <div>
                   <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-4">{t.contact.phone}</h3>
-                  <a href="tel:+905320000000" className="text-xl font-bold hover:text-primary transition-colors">
-                    +90 532 000 00 00
-                  </a>
+                  <div className="flex flex-col gap-2">
+                    {t.contact.phones.map((phone: string) => (
+                      <a key={phone} href={`tel:${phone.replace(/\s/g, '')}`} className="text-xl font-bold hover:text-primary transition-colors">
+                        {phone}
+                      </a>
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-4">{t.contact.email}</h3>
