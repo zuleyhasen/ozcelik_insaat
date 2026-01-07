@@ -6,43 +6,92 @@ import { ChevronDown } from 'lucide-react';
 
 export function HeroSection() {
   const { t } = useLanguage();
-  const heroRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
+  const heroRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const subtitleRef = useRef<HTMLParagraphElement | null>(null);
+  const ctaRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Detect mobile devices
+  const isMobile =
+    typeof navigator !== 'undefined' &&
+    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  /* ======================
+     GSAP TEXT ANIMATIONS
+     ====================== */
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
+        titleRef.current,
+        { y: 250, opacity: 0 },
+        { y: 6, opacity: 1, duration: 1.4, delay: 0.5 }
+      );
+
+      gsap.fromTo(
+        subtitleRef.current,
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          delay: 0.8
+        }
+      );
+
+      gsap.fromTo(
         ctaRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, delay: 0.5 }
+        { opacity: 1, y: 0, duration: 1, delay: 1.2 }
       );
     }, heroRef);
+
     return () => ctx.revert();
   }, []);
 
+  /* ======================
+     VIDEO BEHAVIOR
+     ====================== */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const attemptPlay = () => {
-      video.play().catch(() => {
-        console.log("Otomatik oynatma engellendi, etkileşim bekleniyor.");
-      });
+    // Mobile: native loop (most stable)
+    if (isMobile) {
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      video.play().catch(() => { });
+      return;
+    }
+
+    // Desktop: pause 3s on last frame then restart
+    const handleEnded = () => {
+      video.pause();
+      setTimeout(() => {
+        video.currentTime = 0;
+        video.play();
+      }, 500);
     };
 
-    attemptPlay();
-    document.addEventListener('touchstart', attemptPlay, { once: true });
-    return () => document.removeEventListener('touchstart', attemptPlay);
-  }, []);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, [isMobile]);
 
   return (
     <section
       ref={heroRef}
-      className="relative w-full h-[100dvh] overflow-hidden bg-black"
+      className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* VIDEO WRAPPER */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
+      {/* ======================
+          BACKGROUND VIDEO
+          ====================== */}
+      <div className="absolute inset-0 z-0">
         <video
           ref={videoRef}
           autoPlay
@@ -50,64 +99,77 @@ export function HeroSection() {
           loop
           playsInline
           webkit-playsinline="true"
+          x5-playsinline="true"
           controls={false}
-          disablePictureInPicture
           preload="auto"
-          className="w-full h-full object-cover pointer-events-none"
-          style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} 
+          className="pointer-events-none absolute inset-0 w-full h-full object-cover scale-130"
+          style={{ filter: 'brightness(0.4)' }}
         >
-          <source 
-            src="/images/hero-backgroundMobile.mp4" 
-            type="video/mp4" 
-            media="(max-width: 767px)" 
-          />
-          <source 
-            src="/images/hero-background.mp4" 
-            type="video/mp4" 
-            media="(min-width: 768px)" 
-          />
+          <source src="/images/hero-background1.mp4" type="video/mp4" />
         </video>
 
-        {/* GRADIENT OVERLAY (Aşağı doğru kararma) */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/80 z-[1]" />
+
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
       </div>
 
-      {/* CONTENT */}
-      <div className="relative z-10 w-full h-full container mx-auto px-6 md:px-12 flex flex-col justify-end pb-24 md:pb-20">
-        <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-8">
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-            <a
-              href="#projects"
-              className="px-10 py-5 bg-[#ff6b00] text-black font-bold rounded-full text-center active:scale-95 transition-all hover:bg-[#e66000]"
-            >
-              {t.hero.cta1}
-            </a>
-            <a
-              href="#contact"
-              className="px-10 py-5 border-2 border-white text-white font-bold rounded-full text-center active:scale-95 transition-all hover:bg-white/10"
-            >
-              {t.hero.cta2}
-            </a>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-            className="hidden md:block text-white font-bold tracking-[0.3em] uppercase text-sm"
+      {/* ======================
+          CONTENT
+          ====================== */}
+      <div className="relative z-10 container mx-auto px-10 text-center">
+        <div className="overflow-hidden mb-2">
+          <h1
+            ref={titleRef}
+            className="flex flex-col items-center text-[8vw] md:text-[5rem] font-black text-white leading-[1.1] tracking-tighter uppercase drop-shadow-2xl pt-12 pb-8 -mt-12"
           >
-            {t.hero.badge}
-          </motion.p>
+            {t.hero.headline}
+
+            <span className="text-[3vw] md:text-2xl font-light tracking-[0.2em] text-gray-300 mt-2 pt-3 pb-3 -mt-3">
+              {t.hero.headline2}
+            </span>
+          </h1>
+        </div>
+
+        <div className="overflow-hidden mb-10">
+          <p
+            ref={subtitleRef}
+            className="text-md md:text-xl text-gray-200 max-w-2xl mx-auto font-medium tracking-wide pt-6 pb-3 -mt-6"
+          >
+            {t.hero.subheading}
+          </p>
+        </div>
+
+        <div ref={ctaRef} className="flex gap-4 justify-center flex-wrap mt-8">
+          <a
+            href="#projects"
+            className="px-8 py-3 bg-[#ff6b00] hover:bg-[#e66000] text-white font-bold uppercase tracking-wider text-xs rounded-full transition-all duration-300 shadow-lg hover:shadow-orange-500/20 active:scale-95"
+          >
+            {t.hero.cta1}
+          </a>
+
+          <a
+            href="#contact"
+            className="px-8 py-3 border-2 border-white/80 text-white font-bold uppercase tracking-wider text-xs rounded-full hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm active:scale-95"
+          >
+            {t.hero.cta2}
+          </a>
         </div>
       </div>
 
-      {/* SCROLL ICON */}
+      {/* ======================
+          SCROLL INDICATOR
+          ====================== */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white z-10"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-primary"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
       >
-        <ChevronDown size={32} />
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <ChevronDown size={24} className="text-primary" />
+        </motion.div>
       </motion.div>
     </section>
   );

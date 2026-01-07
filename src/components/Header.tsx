@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Menu, X, Instagram, MessageCircle } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { LanguageSwitcher } from './LanguageSwitcher';
@@ -11,45 +11,35 @@ export function Header() {
   const menuItems = [
     { label: t.nav.about, href: '#about', id: 'about' },
     { label: t.nav.projects, href: '#projects', id: 'projects' },
-    { label: t.footer.services, href: '#services', id: 'services' },
     { label: t.nav.contact, href: '#contact', id: 'contact' },
   ];
 
-  const socialLinks = [
-    { icon: <Instagram size={20} />, href: "https://instagram.com/ozcelikinsaat", label: "Instagram" },
-    { icon: <MessageCircle size={20} />, href: "https://wa.me/905352563877", label: "WhatsApp" },
-  ];
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-xl border-b border-zinc-100 shadow-sm">
-      <nav className="container mx-auto px-4 py-3">
-        <div className="flex items-center justify-between h-14 md:h-20">
-          {/* Logo */}
+    <header className="fixed top-0 left-0 right-0 z-40 bg-background/15 backdrop-blur-md shadow-lg ">
+      <nav className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between h-5">
+          {/* Logo - Hedef projedeki gibi büyük ve net */}
           <motion.a 
             href="/"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex items-center"
+            className="text-xl md:text-2xl font-black tracking-tighter"
           >
-            <img 
-              src="/images/logo.png" 
-              alt="ÖZÇELİK İNŞAAT" 
-              className="h-12 md:h-16 w-auto object-contain brightness-110 contrast-110"
-            />
+            ÖZÇELİK İNŞAAT
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-12">
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-8"
+              className="flex items-center gap-10"
             >
               {menuItems.map((item, idx) => (
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-sm font-black uppercase tracking-[0.15em] text-zinc-800 hover:text-primary transition-colors duration-300"
+                  className="text-sm font-bold uppercase tracking-widest hover:text-primary transition-colors duration-300"
                   style={{ transitionDelay: `${idx * 50}ms` }}
                 >
                   {item.label}
@@ -57,47 +47,18 @@ export function Header() {
               ))}
             </motion.div>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-4 border-l border-zinc-200 pl-6">
-              {socialLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors duration-300"
-                  aria-label={link.label}
-                >
-                  {link.icon}
-                </a>
-              ))}
-              <div className="ml-2">
-                <LanguageSwitcher />
-              </div>
+            <div className="flex items-center gap-6 border-l border-black/20 pl-6">
+              <LanguageSwitcher />
             </div>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-4 md:hidden">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-zinc-800"
-                aria-label={link.label}
-              >
-                {link.icon}
-              </a>
-            ))}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-zinc-800 p-2"
-            >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden text-white p-2"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
 
         {/* Mobile Navigation */}
@@ -120,21 +81,8 @@ export function Header() {
                     {item.label}
                   </a>
                 ))}
-                <div className="pt-4 border-t border-white/10 flex justify-between items-center">
+                <div className="pt-4 border-t border-white/10">
                    <LanguageSwitcher />
-                   <div className="flex gap-4">
-                     {socialLinks.map((link) => (
-                       <a
-                         key={link.label}
-                         href={link.href}
-                         target="_blank"
-                         rel="noopener noreferrer"
-                         className="hover:text-primary transition-colors"
-                       >
-                         {link.icon}
-                       </a>
-                     ))}
-                   </div>
                 </div>
               </div>
             </motion.div>

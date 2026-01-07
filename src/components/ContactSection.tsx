@@ -2,17 +2,19 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckIcon } from './ConstructionIcons';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { MapView } from "@/components/Map";
+
 
 export function ContactSection() {
   const { t } = useLanguage();
-  
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: '',
   });
-  
+
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -59,7 +61,7 @@ export function ContactSection() {
 
           {/* Üst Blok: Adres Bilgileri ve Harita Yan Yana */}
           <div className="grid lg:grid-cols-2 gap-12 mb-20 items-stretch">
-            
+
             {/* SOL: İletişim Detayları */}
             <motion.div variants={itemVariants} className="flex flex-col justify-center space-y-12">
               <div>
@@ -91,25 +93,20 @@ export function ContactSection() {
             </motion.div>
 
             {/* SAĞ: Harita (Tam Konum Pinli) */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
-              className="w-full h-[400px] lg:h-auto min-h-[400px] rounded-sm overflow-hidden border border-border transition-all duration-1000"
+              className="w-full h-[400px] lg:h-auto min-h-[400px] rounded-sm overflow-hidden border border-border"
             >
-              <iframe
-                title="Özçelik Yapı Konum"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.085025707746!2d28.6791668!3d41.0014813!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14caa11796e9cf97%3A0xd5c5ba83d7a8838e!2zWcO8Y2V2bGVyLCBCYWhjZSBZb2x1IENkLiBubzo0NlxCLCAzNDUwMCBFc2VueXVydC_EsHN0YW5idWw!5e0!3m2!1str!2str!4v1736070000000!5m2!1str!2str"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+              <MapView
+                center={{ lat: 41.0014813, lng: 28.6791668 }}
+                zoom={16}
               />
             </motion.div>
+
           </div>
 
           {/* Alt Blok: Minimal İletişim Formu */}
-          <motion.div 
+          <motion.div
             variants={itemVariants}
             className="bg-zinc-50 p-8 md:p-16 border border-zinc-200"
           >
