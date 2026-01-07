@@ -89,7 +89,6 @@ export function ContactSection() {
                 </div>
               </div>
             </motion.div>
-
             {/* SAĞ: Harita (Tam Konum Pinli) */}
             <motion.div
               variants={itemVariants}
@@ -106,14 +105,6 @@ export function ContactSection() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </motion.div>
-
-          </div>
-
-          {/* Alt Blok: Minimal İletişim Formu */}
-          <motion.div
-            variants={itemVariants}
-            className="bg-zinc-50 p-8 md:p-16 border border-zinc-200"
-          >
             <form onSubmit={handleSubmit} className="space-y-10">
               <div className="grid md:grid-cols-3 gap-10">
                 <div className="space-y-2">
