@@ -13,11 +13,6 @@ export function HeroSection() {
   const ctaRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // Detect mobile devices
-  const isMobile =
-    typeof navigator !== 'undefined' &&
-    /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
   /* ======================
      GSAP TEXT ANIMATIONS
      ====================== */
@@ -58,22 +53,28 @@ export function HeroSection() {
     const video = videoRef.current;
     if (!video) return;
 
-    // Mobile: native loop (most stable)
-    if (isMobile) {
-      video.loop = true;
-      video.muted = true;
-      video.playsInline = true;
-      video.play().catch(() => { });
-      return;
-    }
+    // Ensure video is muted for autoplay to work on mobile
+    video.muted = true;
+    video.defaultMuted = true;
+    
+    // Force play
+    const playVideo = () => {
+      const promise = video.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          // Autoplay was prevented, usually requires user interaction
+          // But with muted and playsInline, it should work
+          console.log("Autoplay prevented");
+        });
+      }
+    };
 
-    // Desktop: pause 3s on last frame then restart
+    playVideo();
+
+    // Desktop: pause 0.5s on last frame then restart (optional logic)
     const handleEnded = () => {
-      video.pause();
-      setTimeout(() => {
-        video.currentTime = 0;
-        video.play();
-      }, 500);
+      video.currentTime = 0;
+      video.play();
     };
 
     video.addEventListener('ended', handleEnded);
@@ -81,7 +82,7 @@ export function HeroSection() {
     return () => {
       video.removeEventListener('ended', handleEnded);
     };
-  }, [isMobile]);
+  }, []);
 
   return (
     <section
