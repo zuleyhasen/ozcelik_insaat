@@ -88,24 +88,33 @@ export function HeroSection() {
       ref={heroRef}
       className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-background"
     >
-      {/* ======================
-          BACKGROUND VIDEO
-          ====================== */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
           muted
           loop
           playsInline
-          webkit-playsinline="true"
-          x5-playsinline="true"
+          webkit-playsinline="true" // iOS için kritik
           controls={false}
+          disablePictureInPicture
           preload="auto"
-          className="pointer-events-none absolute inset-0 w-full h-full object-cover scale-130"
-          style={{ filter: 'brightness(0.4)' }}
+          className="w-full h-full object-cover pointer-events-none"
+          // iOS'ta çıkan oynatma işaretini CSS seviyesinde engellemek için
+          style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
         >
-          <source src="/images/hero-background1.mp4" type="video/mp4" />
+          {/* Mobil Video (9:16) - Ekran 768px'den küçükse bu aktif olur */}
+          <source
+            src="/images/heroSection-Mobile.mp4"
+            type="video/mp4"
+            media="(max-width: 767px)"
+          />
+          {/* Masaüstü Video (16:9) */}
+          <source
+            src="/images/heroSection.mp4"
+            type="video/mp4"
+            media="(min-width: 768px)"
+          />
         </video>
 
 
@@ -171,6 +180,6 @@ export function HeroSection() {
           <ChevronDown size={24} className="text-primary" />
         </motion.div>
       </motion.div>
-    </section>
+    </section >
   );
 }
