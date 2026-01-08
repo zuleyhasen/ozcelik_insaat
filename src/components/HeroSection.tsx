@@ -116,9 +116,7 @@ export function HeroSection() {
             media="(min-width: 768px)"
           />
         </video>
-
-
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
+        <div className="absolute inset-0 bg-black/30 z-[1]" />
       </div>
 
       {/* ======================
