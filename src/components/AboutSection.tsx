@@ -91,7 +91,7 @@ export function AboutSection() {
               className="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-8 border-white"
             >
               <img
-                src="/images/about/about.png"
+                src="/images/about/about.webp"
                 alt="Modern Architecture"
                 className="w-full h-[500px] object-cover"
               />
@@ -103,7 +103,7 @@ export function AboutSection() {
               className="absolute -bottom-10 -right-10 z-20 hidden md:block w-72 h-72 rounded-2xl overflow-hidden border-8 border-white shadow-2xl"
             >
               <img
-                src="/images/about/team.png"
+                src="/images/about/team.webp"
                 alt="Construction Team"
                 className="w-full h-full object-cover"
               />

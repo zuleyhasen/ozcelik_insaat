@@ -31,7 +31,7 @@ export function ServicesSection() {
       descTr: 'Modern ve konforlu konut projelerimiz, en yüksek kalite standartlarına uygun olarak inşa edilmektedir. Yaşam alanlarınızı güven ve estetikle buluşturuyoruz.',
       descEn: 'Our modern and comfortable residential projects are built to the highest quality standards. We bring trust and aesthetics to your living spaces.',
       icon: BuildingIcon,
-      image: '/images/services/residential.png'
+      image: '/images/services/residential.webp'
     },
     {
       titleTr: 'Ticari Projeler',
@@ -39,7 +39,7 @@ export function ServicesSection() {
       descTr: 'İş merkezleri ve ticari binaları, işlevsellik ve estetik dengesi ile tasarlayıp inşa ediyoruz. Modern iş dünyasının ihtiyaçlarına profesyonel çözümler sunuyoruz.',
       descEn: 'We design and build commercial centers and office buildings with functionality and aesthetic balance. We offer professional solutions for the needs of the modern business world.',
       icon: SafetyIcon,
-      image: '/images/services/commercial.png'
+      image: '/images/services/commercial.webp'
     },
     {
       titleTr: 'Kentsel Dönüşüm',
@@ -47,7 +47,7 @@ export function ServicesSection() {
       descTr: 'Kentsel dönüşüm projeleri kapsamında apartman inşaatları, modern mimari çizgileri ve kaliteli malzeme kullanımıyla estetik ve konforu bir arada sunmaktadır. Eski yapıları güvenli geleceğe taşıyoruz.',
       descEn: 'In our urban transformation projects, we build apartments with modern architectural lines and high-quality materials, combining aesthetics and comfort. We carry old structures to a safe future.',
       icon: QualityIcon,
-      image: '/images/services/urban.png'
+      image: '/images/services/urban.webp'
     },
   ];
 
