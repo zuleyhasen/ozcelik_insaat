@@ -4,10 +4,9 @@ import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const apartmentImages = [
-  '/images/ornek_daire/1.webp', '/images/ornek_daire/2.webp', '/images/ornek_daire/3.webp', '/images/ornek_daire/4.webp', '/images/ornek_daire/5.webp', '/images/ornek_daire/6.webp', '/images/ornek_daire/7.webp', '/images/ornek_daire/8.webp',
-  '/images/ornek_daire/9.webp', '/images/ornek_daire/10.webp', '/images/ornek_daire/11.webp', '/images/ornek_daire/12.webp', '/images/ornek_daire/13.webp', '/images/ornek_daire/14.webp', '/images/ornek_daire/15.webp', '/images/ornek_daire/16.webp',
-  '/images/ornek_daire/17.webp', '/images/ornek_daire/18.webp', '/images/ornek_daire/19.webp', '/images/ornek_daire/20.webp', '/images/ornek_daire/21.webp', '/images/ornek_daire/22.webp', '/images/ornek_daire/23.webp', '/images/ornek_daire/24.webp',
-  '/images/ornek_daire/25.webp', '/images/ornek_daire/26.webp', '/images/ornek_daire/27.webp', '/images/ornek_daire/28.webp', '/images/ornek_daire/29.webp', '/images/ornek_daire/30.webp', '/images/ornek_daire/31.webp', '/images/ornek_daire/32.webp',
+  '/images/ornek_daire/1.webp', '/images/ornek_daire/2.webp', '/images/ornek_daire/5.webp', '/images/ornek_daire/6.webp', '/images/ornek_daire/7.webp', '/images/ornek_daire/8.webp',
+  '/images/ornek_daire/9.webp', '/images/ornek_daire/10.webp', '/images/ornek_daire/11.webp', '/images/ornek_daire/12.webp', '/images/ornek_daire/13.webp', '/images/ornek_daire/14.webp', '/images/ornek_daire/15.webp', '/images/ornek_daire/18.webp', '/images/ornek_daire/19.webp', '/images/ornek_daire/20.webp', '/images/ornek_daire/21.webp', '/images/ornek_daire/22.webp', '/images/ornek_daire/23.webp', '/images/ornek_daire/24.webp',
+  '/images/ornek_daire/25.webp', '/images/ornek_daire/29.webp', '/images/ornek_daire/30.webp', '/images/ornek_daire/31.webp', '/images/ornek_daire/32.webp',
   '/images/ornek_daire/33.webp', '/images/ornek_daire/34.webp', '/images/ornek_daire/35.webp', '/images/ornek_daire/36.webp', '/images/ornek_daire/37.webp', '/images/ornek_daire/38.webp', '/images/ornek_daire/39.webp', '/images/ornek_daire/40.webp',
   '/images/ornek_daire/41.webp', '/images/ornek_daire/42.webp', '/images/ornek_daire/43.webp', '/images/ornek_daire/44.webp', '/images/ornek_daire/45.webp'
 ];
@@ -54,7 +53,7 @@ export function ApartmentGallerySection() {
   }, [selectedImageIndex, handleNext, handlePrev]);
 
   return (
-    <section className="py-20 bg-background overflow-hidden">
+    <section id="apartmentGallery" className="py-20 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tighter text-foreground">

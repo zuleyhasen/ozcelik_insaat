@@ -11,6 +11,8 @@ export function Header() {
   const menuItems = [
     { label: t.nav.about, href: '#about', id: 'about' },
     { label: t.nav.projects, href: '#projects', id: 'projects' },
+    { label: t.nav.apartmentGallery, href: '#apartmentGallery', id: 'apartmentGallery' },
+    { label: t.nav.services, href: '#services', id: 'services' },
     { label: t.nav.contact, href: '#contact', id: 'contact' },
   ];
 

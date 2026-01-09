@@ -3,6 +3,8 @@ export const translations = {
     nav: {
       about: 'Hakkımızda',
       projects: 'Projeler',
+      apartmentGallery: 'Örnek Daire Galeri',
+      services: 'Hizmetlerimiz',
       contact: 'İletişim',
       contactBtn: 'İletişim',
     },
@@ -93,6 +95,8 @@ export const translations = {
     nav: {
       about: 'About',
       projects: 'Projects',
+      apartmentGallery: 'Apartment Gallery',
+      services: 'Services',
       contact: 'Contact',
       contactBtn: 'Contact',
     },

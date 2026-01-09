@@ -4,11 +4,6 @@ import App from "./App";
 import "./index.css";
 import { APIProvider } from "@vis.gl/react-google-maps";
 
-// ✅ DOĞRU YER: JSX DIŞINDA
-console.log(
-  "API KEY:",
-  import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-);
 
 const container = document.getElementById("root");
 

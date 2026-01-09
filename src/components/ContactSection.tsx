@@ -15,9 +15,12 @@ export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // Esenyurt Üçevler Ofis Koordinatları (Embed için)
-  const mapAddress = "Üçevler Mah. Bahçe Yolu Cad. No: 46/B Esenyurt, İstanbul";
-  const embedUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCmhT5dy-VJobY9CK_-QE6F0mkFlN7a_G8&q=${encodeURIComponent(mapAddress)}&zoom=16`;
+  /**
+   * GOOGLE MAPS EMBED
+   * API KEY .env dosyasından gelir
+   * Koordinat sabit → pin asla şaşmaz
+   */
+  const embedUrl = `https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=41.0280673286604,28.681712849744464&zoom=16`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -63,15 +66,14 @@ export function ContactSection() {
           {/* ADRES + HARİTA */}
           <div className="grid lg:grid-cols-2 gap-12 mb-20 items-stretch">
             
-            {/* SOL BİLGİ ALANI */}
+            {/* SOL BİLGİ */}
             <motion.div variants={itemVariants} className="flex flex-col justify-center space-y-12">
               <div>
                 <h3 className="text-xs font-bold text-primary uppercase tracking-[0.3em] mb-4">
                   {t.contact.address}
                 </h3>
                 <p className="text-md md:text-xl font-bold uppercase">
-                  Üçevler Mah. Bahçe Yolu Cad.<br />
-                  No: 46/B Esenyurt / İSTANBUL
+                  Üçevler, Bahçe Yolu Cd. No:46/B, 34100 Esenyurt / İstanbul
                 </p>
               </div>
 
@@ -92,30 +94,30 @@ export function ContactSection() {
                     {t.contact.email}
                   </h3>
                   <a href="mailto:info@ozcelikinsaat.com" className="text-xl font-bold">
-                    info@ozcelikinsaat.com
+                    ozcelikinsaat1@gmail.com
                   </a>
                 </div>
               </div>
             </motion.div>
 
-            {/* SAĞ – ÜCRETSİZ VE SORUNSUZ HARİTA (IFRAME) */}
+            {/* SAĞ – HARİTA (EMBED + OVERLAY) */}
             <motion.div
               variants={itemVariants}
-              className="w-full min-h-[400px] overflow-hidden border bg-zinc-100 rounded-lg shadow-sm"
+              className="relative w-full min-h-[400px] overflow-hidden border bg-zinc-100 rounded-lg shadow-sm"
             >
               <iframe
                 title="Özçelik Yapı Konum"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
                 src={embedUrl}
+                className="w-full h-full"
+                loading="lazy"
+                style={{ border: 0 }}
                 allowFullScreen
               />
+
             </motion.div>
           </div>
 
-          {/* FORM ALANI */}
+          {/* FORM */}
           <motion.div variants={itemVariants} className="bg-zinc-50 p-8 md:p-16 border">
             <form onSubmit={handleSubmit} className="space-y-10">
               <div className="grid md:grid-cols-2 gap-10">
@@ -126,7 +128,7 @@ export function ContactSection() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none transition-colors"
+                  className="bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none"
                 />
                 <input
                   type="email"
@@ -135,9 +137,10 @@ export function ContactSection() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none transition-colors"
+                  className="bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none"
                 />
               </div>
+
               <textarea
                 name="message"
                 placeholder={t.contact.form.messagePlaceholder}
@@ -145,16 +148,17 @@ export function ContactSection() {
                 onChange={handleChange}
                 required
                 rows={4}
-                className="w-full bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none transition-colors resize-none"
+                className="w-full bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none resize-none"
               />
+
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-5 bg-black text-white font-bold uppercase tracking-widest hover:bg-zinc-800 transition-colors disabled:opacity-50"
+                className="w-full py-5 bg-black text-white font-bold uppercase tracking-widest hover:bg-zinc-800 disabled:opacity-50"
               >
-                {loading ? "..." : ("MESAJI GÖNDER")}
+                {loading ? '...' : 'MESAJI GÖNDER'}
               </button>
-              
+
               {submitted && (
                 <p className="text-green-600 font-bold text-center animate-pulse">
                   {t.contact.form.submitted}
