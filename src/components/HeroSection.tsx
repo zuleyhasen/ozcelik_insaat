@@ -17,6 +17,15 @@ export default function HeroSection() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    const video = document.querySelector('video');
+    if (video) {
+      video.play().catch(error => {
+        console.log("Video autoplay failed:", error);
+      });
+    }
+  }, [isMobile]);
+
   return (
     <section className="relative w-full h-screen overflow-hidden">
       {/* BACKGROUND */}
@@ -32,11 +41,13 @@ export default function HeroSection() {
 
         {/* VIDEO */}
         <video
+          key={isMobile ? 'mobile-video' : 'desktop-video'}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          controls={false}
+          preload="auto"
           onCanPlay={() => setVideoReady(true)}
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
             videoReady ? 'opacity-100' : 'opacity-0'
