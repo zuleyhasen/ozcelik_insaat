@@ -257,9 +257,13 @@ video {
 }
 
 /* Ek mobil video düzeltmeleri */
-*::-webkit-media-controls-start-playback-button {
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-panel,
+video::-webkit-media-controls-overlay-play-button {
   display: none !important;
-  -webkit-appearance: none;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
 }
 
 video::-webkit-media-controls {
@@ -270,4 +274,5 @@ video {
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
+  pointer-events: none !important;
 }

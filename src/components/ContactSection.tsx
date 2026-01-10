@@ -24,7 +24,9 @@ export function ContactSection() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Basit XSS koruması: HTML etiketlerini temizle
+    const sanitizedValue = value.replace(/<[^>]*>?/gm, '');
+    setFormData((prev) => ({ ...prev, [name]: sanitizedValue }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {

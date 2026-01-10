@@ -46,12 +46,19 @@ export default function HeroSection() {
           muted
           loop
           playsInline
+          webkit-playsinline="true"
+          x5-playsinline="true"
           controls={false}
           preload="auto"
           onCanPlay={() => setVideoReady(true)}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 pointer-events-none ${
             videoReady ? 'opacity-100' : 'opacity-0'
           }`}
+          style={{
+            WebkitMaskImage: '-webkit-radial-gradient(white, black)',
+            WebkitBackfaceVisibility: 'hidden',
+            MozBackfaceVisibility: 'hidden',
+          }}
         >
           <source
             src={
