@@ -70,7 +70,7 @@ export function HeroSection() {
       <div className="absolute inset-0 w-full h-full">
         {isMobile ? (
           <img
-            src="/images/hero-mobile.gif"
+            src="/images/heroSection-Mobile.gif"
             alt="Hero background"
             className="w-full h-full object-cover"
           />
