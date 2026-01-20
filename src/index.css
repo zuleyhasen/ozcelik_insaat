@@ -256,23 +256,26 @@ video {
   }
 }
 
-/* Ek mobil video düzeltmeleri */
-video::-webkit-media-controls-start-playback-button,
-video::-webkit-media-controls-play-button,
-video::-webkit-media-controls-panel,
-video::-webkit-media-controls-overlay-play-button {
+/* Kesin video ve canvas düzeltmeleri */
+video {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+canvas {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* iOS'un zorla çıkardığı butonları her ihtimale karşı ez */
+*::-webkit-media-controls-start-playback-button,
+*::-webkit-media-controls-play-button,
+*::-webkit-media-controls-panel,
+*::-webkit-media-controls-overlay-play-button,
+*::-webkit-media-controls {
   display: none !important;
   -webkit-appearance: none !important;
   opacity: 0 !important;
-}
-
-video::-webkit-media-controls {
-  display: none !important;
-}
-
-video {
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  pointer-events: none !important;
 }

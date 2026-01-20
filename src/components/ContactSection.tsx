@@ -15,7 +15,11 @@ export function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
+  /**
+   * GOOGLE MAPS EMBED
+   * API KEY .env dosyasından gelir
+   * Koordinat sabit → pin asla şaşmaz
+   */
   const embedUrl = `https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&q=41.0280673286604,28.681712849744464&zoom=16`;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -114,6 +118,56 @@ export function ContactSection() {
 
             </motion.div>
           </div>
+
+          {/* FORM */}
+          <motion.div variants={itemVariants} className="bg-zinc-50 p-8 md:p-16 border">
+            <form onSubmit={handleSubmit} className="space-y-10">
+              <div className="grid md:grid-cols-2 gap-10">
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={t.contact.form.namePlaceholder}
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none"
+                />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={t.contact.form.emailPlaceholder}
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none"
+                />
+              </div>
+
+              <textarea
+                name="message"
+                placeholder={t.contact.form.messagePlaceholder}
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={4}
+                className="w-full bg-transparent border-b border-zinc-300 py-4 focus:border-black outline-none resize-none"
+              />
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-5 bg-black text-white font-bold uppercase tracking-widest hover:bg-zinc-800 disabled:opacity-50"
+              >
+                {loading ? '...' : 'MESAJI GÖNDER'}
+              </button>
+
+              {submitted && (
+                <p className="text-green-600 font-bold text-center animate-pulse">
+                  {t.contact.form.submitted}
+                </p>
+              )}
+            </form>
+          </motion.div>
 
         </motion.div>
       </div>

@@ -1,6 +1,7 @@
 import { Header } from '@/components/Header';
-import {HeroSection} from '@/components/HeroSection';
+import HeroSection from '@/components/HeroSection';
 import { AboutSection } from '@/components/AboutSection';
+import { FoundationSection } from '@/components/FoundationSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { ApartmentGallerySection } from '@/components/ApartmentGallerySection';
 import { SafetyBand } from '@/components/SafetyBand';
@@ -17,6 +18,7 @@ export default function Home() {
       <main className="flex-1">
         <HeroSection />
         <AboutSection />
+        <FoundationSection />
         <ProjectsSection />
         <SafetyBand />
         <ApartmentGallerySection />
