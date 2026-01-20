@@ -57,7 +57,7 @@ export default function HeroSection() {
 
     video.muted = true;
     video.addEventListener('play', onPlay);
-    video.play().catch(() => {});
+    video.play().catch(() => { });
 
     return () => {
       video.removeEventListener('play', onPlay);
@@ -76,8 +76,15 @@ export default function HeroSection() {
           <img
             src="/images/heroSection-Mobile.gif"
             alt=""
-            className="absolute inset-0 w-full h-full object-cover"
+            className="
+    absolute inset-0 w-full h-full object-cover
+    -translate-y-[38px]
+    scale-[1.05]
+    md:translate-y-0 md:scale-100
+  "
           />
+
+
         )}
 
         {/* DESKTOP – HIDDEN VIDEO */}
@@ -97,9 +104,8 @@ export default function HeroSection() {
         {!isMobile && (
           <canvas
             ref={canvasRef}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-              videoReady ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'
+              }`}
           />
         )}
 

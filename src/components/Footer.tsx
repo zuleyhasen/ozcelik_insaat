@@ -65,13 +65,13 @@ export function Footer() {
             <h4 className="font-semibold mb-4">{t.footer.contact}</h4>
             <div className="space-y-2 text-sm opacity-80">
               <p>
-                <a href="tel:+905551234567" className="hover:opacity-100 transition-opacity">
-                  +90 555 123 45 67
+                <a href="tel:+905352563877" className="hover:opacity-100 transition-opacity">
+                  +90535 256 38 77
                 </a>
               </p>
               <p>
-                <a href="mailto:info@ozcelik.com" className="hover:opacity-100 transition-opacity">
-                  info@ozcelik.com
+                <a href="mailto:ozcelikinsaat1@gmail.com" className="hover:opacity-100 transition-opacity">
+                  ozcelikinsaat1@gmail.com
                 </a>
               </p>
             </div>
