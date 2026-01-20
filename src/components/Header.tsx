@@ -17,7 +17,7 @@ export function Header() {
   ];
 
   const socialLinks = [
-    { icon: <Instagram size={20} />, href: "https://instagram.com/ozcelikinsaat", label: "Instagram" },
+    { icon: <Instagram size={20} />, href: "https://instagram.com/ozcelikinsaat1", label: "Instagram" },
     { icon: <MessageCircle size={20} />, href: "https://wa.me/905352563877", label: "WhatsApp" },
   ];
 

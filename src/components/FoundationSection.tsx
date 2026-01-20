@@ -57,12 +57,15 @@ export function FoundationSection() {
           </div>
 
           {/* Fotoğraf Izgarası */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-[400px] md:h-[400px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[180px] md:auto-rows-fr md:h-[400px]">
             {images.map((img, index) => (
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className={`relative overflow-hidden rounded-2xl shadow-xl group ${img.span}`}
+                className={`relative overflow-hidden rounded-2xl shadow-xl group
+        ${index === 0 ? 'md:col-span-2 md:row-span-2' : ''}
+        ${index === 3 ? 'md:col-span-2' : ''}
+      `}
               >
                 <img
                   src={img.src}
@@ -70,11 +73,10 @@ export function FoundationSection() {
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                </div>
               </motion.div>
             ))}
           </div>
+
         </motion.div>
       </div>
     </section>

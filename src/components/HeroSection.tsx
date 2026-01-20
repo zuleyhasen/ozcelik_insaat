@@ -55,7 +55,7 @@ export default function HeroSection() {
     video.addEventListener('play', onPlay);
     video.muted = true;
 
-    video.play().catch(() => { });
+    video.play().catch(() => {});
 
     return () => {
       video.removeEventListener('play', onPlay);
