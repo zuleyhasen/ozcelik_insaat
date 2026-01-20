@@ -59,9 +59,6 @@ export function AboutSection() {
               <p className="text-lg leading-relaxed text-foreground/80 font-medium">
                 {t.about.description1}
               </p>
-              <p className="text-lg leading-relaxed text-foreground/80">
-                {t.about.description2}
-              </p>
             </motion.div>
 
             <div className="grid sm:grid-cols-3 gap-6">

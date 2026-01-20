@@ -19,15 +19,15 @@ export function FoundationSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" as const},
+      transition: { duration: 0.8, ease: "easeOut" as const },
     },
   };
 
   const images = [
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-1.webp', alt: t.foundation.alt1, span: 'col-span-2 row-span-2' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-2.webp', alt: t.foundation.alt2, span: 'col-span-1 row-span-1' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-3.webp', alt: t.foundation.alt3, span: 'col-span-1 row-span-1' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-4.webp', alt: t.foundation.alt4, span: 'col-span-2 row-span-1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-1.webp', span: 'col-span-2 row-span-2' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-2.webp', span: 'col-span-1 row-span-1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-3.webp', span: 'col-span-1 row-span-1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-4.webp', span: 'col-span-2 row-span-1' },
   ];
 
   return (

@@ -3,7 +3,7 @@ export const translations = {
     nav: {
       about: 'Hakkımızda',
       projects: 'Projeler',
-      apartmentGallery: 'Örnek Daire Galeri',
+      apartmentGallery: 'Galeri',
       services: 'Hizmetlerimiz',
       contact: 'İletişim',
       contactBtn: 'İletişim',
@@ -21,8 +21,6 @@ export const translations = {
       subtitle: 'Yerel ölçekte faaliyet gösteren, işini titizlikle yapan bir inşaat firması',
       description1:
         'Özçelik İnşaat, yerel ölçekte faaliyet gösteren, işini titizlikle yapan bir inşaat firmasıdır. Projelerimizde kalite, güvenlik ve zamanında teslim prensiplerini ön planda tutarız. Küçük ama deneyimli ekibimizle, her projeye aynı ciddiyetle yaklaşırız.',
-      description2:
-        'Amacımız büyük söylemler değil, sağlam ve uzun ömürlü yapılar ortaya koymaktır. Her bir projemiz, müşteri memnuniyeti ve mühendislik mükemmelliğinin bir kanıtıdır.',
       features: [
         {
           title: 'Sağlam Yapılar',
@@ -53,10 +51,6 @@ export const translations = {
       title: 'SAĞLAM TEMELLER',
       subtitle: 'GELECEĞİ GÜVENLE İNŞA EDİYORUZ',
       description: 'Her projemizde en büyük önceliğimiz, yapının ömrünü ve güvenliğini belirleyen temel aşamasıdır. Modern mühendislik teknikleri ve yüksek kaliteli malzemelerle, depreme dayanıklı ve uzun ömürlü yapıların ilk adımını titizlikle atıyoruz.',
-      alt1: 'Özçelik İnşaat Sağlam Temel Çalışması 1',
-      alt2: 'Özçelik İnşaat Sağlam Temel Çalışması 2',
-      alt3: 'Özçelik İnşaat Sağlam Temel Çalışması 3',
-      alt4: 'Özçelik İnşaat Sağlam Temel Çalışması 4',
     },
     contact: {
       title: 'İletişime Geçin',
@@ -122,8 +116,6 @@ export const translations = {
       subtitle: 'A construction company that operates locally and works with precision',
       description1:
         'Özçelik Construction is a construction company that operates on a local scale and works with meticulous attention to detail. We prioritize quality, safety, and timely delivery in all our projects. With our small but experienced team, we approach every project with the same level of commitment.',
-      description2:
-        'Our goal is not grand claims, but to deliver solid and long-lasting structures. Each of our projects is a testament to customer satisfaction and engineering excellence.',
       features: [
         {
           title: 'Solid Structures',
@@ -141,7 +133,7 @@ export const translations = {
     },
     projects: {
       title: 'Projects',
-      subtitle: 'Our completed and ongoing projects',
+      subtitle: 'These projects realized by Özçelik İnşaat offer aesthetics and comfort together through modern architectural lines and the use of high-quality materials. The meticulously managed construction process aims to create safe living spaces with a solid structural approach and long-lasting solutions.',
       completed: 'Completed Projects',
       ongoing: 'Ongoing Projects',
       location: 'Location',

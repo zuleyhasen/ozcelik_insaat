@@ -55,7 +55,7 @@ export default function HeroSection() {
     video.addEventListener('play', onPlay);
     video.muted = true;
 
-    video.play().catch(() => {});
+    video.play().catch(() => { });
 
     return () => {
       video.removeEventListener('play', onPlay);
@@ -92,13 +92,21 @@ export default function HeroSection() {
         {/* CANVAS */}
         <canvas
           ref={canvasRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-            videoReady ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'
+            }`}
         />
 
         {/* OVERLAY */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div
+          className="
+          absolute inset-0 z-[1]
+          bg-gradient-to-t
+          from-black/80
+          via-black/40
+          to-black/10
+        "
+        />
+
       </div>
 
       {/* ======================
@@ -114,7 +122,7 @@ export default function HeroSection() {
             Güvenli, modern ve estetik yapılar
           </p>
 
-          {/* CTA BUTTONS – ESKİ STİL KORUNDU */}
+          {/* CTA BUTTONS*/}
           <div className="flex gap-4 justify-center flex-wrap">
             <a
               href="#projects"
