@@ -5,20 +5,23 @@ import { useEffect, useState, useRef } from 'react';
 export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  /* ======================
+     DEVICE CHECK
+  ====================== */
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  /* ======================
+     VIDEO → CANVAS RENDER
+  ====================== */
   useEffect(() => {
     const video = videoRef.current;
     const canvas = canvasRef.current;
@@ -27,92 +30,127 @@ export default function HeroSection() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let rafId: number;
 
     const render = () => {
       if (video.paused || video.ended) return;
-      
-      // Canvas boyutlarını video boyutlarına veya ekran boyutuna göre ayarla
-      if (canvas.width !== video.videoWidth || canvas.height !== video.videoHeight) {
+
+      if (
+        canvas.width !== video.videoWidth ||
+        canvas.height !== video.videoHeight
+      ) {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
       }
 
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      animationFrameId = requestAnimationFrame(render);
+      rafId = requestAnimationFrame(render);
     };
 
-    const handlePlay = () => {
+    const onPlay = () => {
       setVideoReady(true);
       render();
     };
 
-    video.addEventListener('play', handlePlay);
-    
-    // iOS için zorunlu oynatma
-    const playVideo = () => {
-      video.play().catch(err => {
-        console.log("Autoplay prevented, retrying...", err);
-        // Kullanıcı etkileşimi gerekebilir ama muted olduğu için genellikle çalışır
-      });
-    };
+    video.addEventListener('play', onPlay);
+    video.muted = true;
 
-    playVideo();
+    video.play().catch(() => {});
 
     return () => {
-      video.removeEventListener('play', handlePlay);
-      cancelAnimationFrame(animationFrameId);
+      video.removeEventListener('play', onPlay);
+      cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
 
   return (
     <section className="relative w-full h-screen overflow-hidden bg-black">
-      {/* BACKGROUND */}
+      {/* ======================
+          BACKGROUND
+      ====================== */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {/* MOBILE IMAGE FALLBACK */}
+        {/* MOBILE FALLBACK */}
         {isMobile && !videoReady && (
           <img
-            src="/images/mobile.png"
+            src="/images/heroSection-Mobile.gif"
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
           />
         )}
 
-        {/* HIDDEN VIDEO ELEMENT */}
+        {/* HIDDEN VIDEO */}
         <video
           ref={videoRef}
           muted
           loop
           playsInline
-          webkit-playsinline="true"
           preload="auto"
           className="hidden"
-          src={isMobile ? '/images/heroSection-Mobile.mp4' : '/images/heroSection.mp4'}
+          src="/images/heroSection.mp4"
         />
 
-        {/* CANVAS FOR RENDERING VIDEO - NO CONTROLS POSSIBLE HERE */}
+        {/* CANVAS */}
         <canvas
           ref={canvasRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
             videoReady ? 'opacity-100' : 'opacity-0'
           }`}
         />
 
         {/* OVERLAY */}
-        <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
-      {/* CONTENT */}
-      <div className="relative z-10 flex h-full items-center justify-center text-center px-4 pointer-events-none">
-        <div className="pointer-events-auto">
-          <h1 className="text-white text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
+      {/* ======================
+          CONTENT
+      ====================== */}
+      <div className="relative z-10 flex h-full items-center justify-center text-center px-6">
+        <div>
+          <h1 className="text-white text-[8vw] md:text-6xl font-black leading-tight tracking-tight uppercase drop-shadow-2xl">
             ÖZÇELİK İNŞAAT
           </h1>
-          <p className="text-white text-lg md:text-xl max-w-xl mx-auto drop-shadow-md">
+
+          <p className="text-gray-200 text-base md:text-xl max-w-2xl mx-auto mt-6 mb-10">
             Güvenli, modern ve estetik yapılar
           </p>
+
+          {/* CTA BUTTONS – ESKİ STİL KORUNDU */}
+          <div className="flex gap-4 justify-center flex-wrap">
+            <a
+              href="#projects"
+              className="px-8 py-3 bg-[#ff6b00] hover:bg-[#e66000]
+                         text-white font-bold uppercase tracking-wider text-xs
+                         rounded-full transition-all duration-300
+                         shadow-lg hover:shadow-orange-500/30 active:scale-95"
+            >
+              Projelerimiz
+            </a>
+
+            <a
+              href="#contact"
+              className="px-8 py-3 border-2 border-white/80
+                         text-white font-bold uppercase tracking-wider text-xs
+                         rounded-full hover:bg-white hover:text-black
+                         transition-all duration-300 active:scale-95"
+            >
+              İletişim
+            </a>
+          </div>
         </div>
       </div>
+
+      {/* ======================
+          SCROLL INDICATOR
+      ====================== */}
+      <a
+        href="#about"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20
+                   flex flex-col items-center gap-2
+                   text-white text-xs tracking-widest uppercase opacity-80
+                   hover:opacity-100 transition-opacity"
+      >
+        <span className="w-6 h-6 border-b-2 border-r-2 border-white rotate-45 animate-bounce" />
+      </a>
     </section>
   );
 }

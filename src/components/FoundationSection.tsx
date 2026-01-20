@@ -19,7 +19,7 @@ export function FoundationSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.8, ease: "easeOut" as const},
     },
   };
 
@@ -41,7 +41,7 @@ export function FoundationSection() {
           className="flex flex-col gap-16"
         >
           {/* Başlık Bölümü */}
-          <div className="max-w-3xl">
+          <div className="max-w-none">
             <motion.div variants={itemVariants} className="mb-6">
               <div className="h-1.5 w-20 bg-primary rounded-full mb-6" />
               <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 text-foreground">
@@ -59,7 +59,7 @@ export function FoundationSection() {
           </div>
 
           {/* Fotoğraf Izgarası */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-[600px] md:h-[700px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 h-[400px] md:h-[400px]">
             {images.map((img, index) => (
               <motion.div
                 key={index}
@@ -68,13 +68,11 @@ export function FoundationSection() {
               >
                 <img
                   src={img.src}
-                  alt={img.alt}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-500" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <p className="text-white font-bold uppercase tracking-widest text-sm">{img.alt}</p>
                 </div>
               </motion.div>
             ))}
