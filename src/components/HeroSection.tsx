@@ -20,9 +20,12 @@ export default function HeroSection() {
   }, []);
 
   /* ======================
-     VIDEO → CANVAS RENDER
+     DESKTOP ONLY
+     VIDEO → CANVAS
   ====================== */
   useEffect(() => {
+    if (isMobile) return;
+
     const video = videoRef.current;
     const canvas = canvasRef.current;
     if (!video || !canvas) return;
@@ -52,9 +55,8 @@ export default function HeroSection() {
       render();
     };
 
-    video.addEventListener('play', onPlay);
     video.muted = true;
-
+    video.addEventListener('play', onPlay);
     video.play().catch(() => {});
 
     return () => {
@@ -69,8 +71,8 @@ export default function HeroSection() {
           BACKGROUND
       ====================== */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {/* MOBILE FALLBACK */}
-        {isMobile && !videoReady && (
+        {/* MOBILE – GIF ONLY */}
+        {isMobile && (
           <img
             src="/images/heroSection-Mobile.gif"
             alt=""
@@ -78,35 +80,39 @@ export default function HeroSection() {
           />
         )}
 
-        {/* HIDDEN VIDEO */}
-        <video
-          ref={videoRef}
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="hidden"
-          src="/images/heroSection.mp4"
-        />
+        {/* DESKTOP – HIDDEN VIDEO */}
+        {!isMobile && (
+          <video
+            ref={videoRef}
+            muted
+            loop
+            playsInline
+            preload="auto"
+            className="hidden"
+            src="/images/heroSection.mp4"
+          />
+        )}
 
-        {/* CANVAS */}
-        <canvas
-          ref={canvasRef}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'
+        {/* DESKTOP – CANVAS */}
+        {!isMobile && (
+          <canvas
+            ref={canvasRef}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              videoReady ? 'opacity-100' : 'opacity-0'
             }`}
-        />
+          />
+        )}
 
-        {/* OVERLAY */}
+        {/* GRADIENT OVERLAY – ALT → ÜST */}
         <div
           className="
-          absolute inset-0 z-[1]
-          bg-gradient-to-t
-          from-black/80
-          via-black/40
-          to-black/10
-        "
+            absolute inset-0 z-[1]
+            bg-gradient-to-t
+            from-black/80
+            via-black/40
+            to-black/10
+          "
         />
-
       </div>
 
       {/* ======================
@@ -122,24 +128,28 @@ export default function HeroSection() {
             Güvenli, modern ve estetik yapılar
           </p>
 
-          {/* CTA BUTTONS*/}
+          {/* CTA BUTTONS */}
           <div className="flex gap-4 justify-center flex-wrap">
             <a
               href="#projects"
-              className="px-8 py-3 bg-[#ff6b00] hover:bg-[#e66000]
-                         text-white font-bold uppercase tracking-wider text-xs
-                         rounded-full transition-all duration-300
-                         shadow-lg hover:shadow-orange-500/30 active:scale-95"
+              className="
+                px-8 py-3 bg-[#ff6b00] hover:bg-[#e66000]
+                text-white font-bold uppercase tracking-wider text-xs
+                rounded-full transition-all duration-300
+                shadow-lg hover:shadow-orange-500/30 active:scale-95
+              "
             >
               Projelerimiz
             </a>
 
             <a
               href="#contact"
-              className="px-8 py-3 border-2 border-white/80
-                         text-white font-bold uppercase tracking-wider text-xs
-                         rounded-full hover:bg-white hover:text-black
-                         transition-all duration-300 active:scale-95"
+              className="
+                px-8 py-3 border-2 border-white/80
+                text-white font-bold uppercase tracking-wider text-xs
+                rounded-full hover:bg-white hover:text-black
+                transition-all duration-300 active:scale-95
+              "
             >
               İletişim
             </a>
@@ -152,10 +162,11 @@ export default function HeroSection() {
       ====================== */}
       <a
         href="#about"
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20
-                   flex flex-col items-center gap-2
-                   text-white text-xs tracking-widest uppercase opacity-80
-                   hover:opacity-100 transition-opacity"
+        className="
+          absolute bottom-10 left-1/2 -translate-x-1/2 z-20
+          flex flex-col items-center
+          opacity-80 hover:opacity-100 transition-opacity
+        "
       >
         <span className="w-6 h-6 border-b-2 border-r-2 border-white rotate-45 animate-bounce" />
       </a>
