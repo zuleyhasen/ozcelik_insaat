@@ -24,10 +24,10 @@ export function FoundationSection() {
   };
 
   const images = [
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-1.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 1', span: 'col-span-2 row-span-2' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-2.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 2', span: 'col-span-1 row-span-1' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-3.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 3', span: 'col-span-1 row-span-1' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-4.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 4', span: 'col-span-2 row-span-1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-1.webp', alt: t.foundation.alt1, span: 'col-span-2 row-span-2' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-2.webp', alt: t.foundation.alt2, span: 'col-span-1 row-span-1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-3.webp', alt: t.foundation.alt3, span: 'col-span-1 row-span-1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-4.webp', alt: t.foundation.alt4, span: 'col-span-2 row-span-1' },
   ];
 
   return (
@@ -45,16 +45,14 @@ export function FoundationSection() {
             <motion.div variants={itemVariants} className="mb-6">
               <div className="h-1.5 w-20 bg-primary rounded-full mb-6" />
               <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-6 text-foreground">
-                SAĞLAM TEMELLER
+                {t.foundation.title}
               </h2>
               <p className="text-xl md:text-2xl font-bold text-primary uppercase tracking-widest">
-                GELECEĞİ GÜVENLE İNŞA EDİYORUZ
+                {t.foundation.subtitle}
               </p>
             </motion.div>
             <motion.p variants={itemVariants} className="text-lg leading-relaxed text-foreground/70">
-              Her projemizde en büyük önceliğimiz, yapının ömrünü ve güvenliğini belirleyen temel aşamasıdır. 
-              Modern mühendislik teknikleri ve yüksek kaliteli malzemelerle, depreme dayanıklı ve uzun ömürlü 
-              yapıların ilk adımını titizlikle atıyoruz.
+              {t.foundation.description}
             </motion.p>
           </div>
 

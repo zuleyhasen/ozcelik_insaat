@@ -49,6 +49,15 @@ export const translations = {
     brands: {
       title: 'Çalıştığımız Malzeme ve Hizmet Sağlayıcıları',
     },
+    foundation: {
+      title: 'SAĞLAM TEMELLER',
+      subtitle: 'GELECEĞİ GÜVENLE İNŞA EDİYORUZ',
+      description: 'Her projemizde en büyük önceliğimiz, yapının ömrünü ve güvenliğini belirleyen temel aşamasıdır. Modern mühendislik teknikleri ve yüksek kaliteli malzemelerle, depreme dayanıklı ve uzun ömürlü yapıların ilk adımını titizlikle atıyoruz.',
+      alt1: 'Özçelik İnşaat Sağlam Temel Çalışması 1',
+      alt2: 'Özçelik İnşaat Sağlam Temel Çalışması 2',
+      alt3: 'Özçelik İnşaat Sağlam Temel Çalışması 3',
+      alt4: 'Özçelik İnşaat Sağlam Temel Çalışması 4',
+    },
     contact: {
       title: 'İletişime Geçin',
       subtitle: 'Projeleriniz hakkında bize yazın, en kısa sürede sizinle iletişime geçeceğiz.',
@@ -141,6 +150,15 @@ export const translations = {
     },
     brands: {
       title: 'Materials and Service Providers We Work With',
+    },
+    foundation: {
+      title: 'SOLID FOUNDATIONS',
+      subtitle: 'BUILDING THE FUTURE WITH CONFIDENCE',
+      description: 'In every project, our top priority is the foundation stage, which determines the lifespan and safety of the structure. With modern engineering techniques and high-quality materials, we meticulously take the first step towards earthquake-resistant and long-lasting structures.',
+      alt1: 'Özçelik Construction Solid Foundation Work 1',
+      alt2: 'Özçelik Construction Solid Foundation Work 2',
+      alt3: 'Özçelik Construction Solid Foundation Work 3',
+      alt4: 'Özçelik Construction Solid Foundation Work 4',
     },
     contact: {
       title: 'Get in Touch',
