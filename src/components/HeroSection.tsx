@@ -84,7 +84,6 @@ export function HeroSection() {
             preload="auto"
             className="w-full h-full object-cover"
           >
-            <source src="/images/hero.webm" type="video/webm" />
             <source src="/images/heroSection.mp4" type="video/mp4" />
           </video>
         )}
