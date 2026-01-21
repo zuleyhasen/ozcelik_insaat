@@ -5,7 +5,6 @@ import { useEffect, useState, useRef } from 'react';
 export default function HeroSection() {
   const [isMobile, setIsMobile] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
-  const [vh, setVh] = useState<number | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -18,24 +17,6 @@ export default function HeroSection() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  /* ======================
-     REAL VIEWPORT HEIGHT
-  ====================== */
-  useEffect(() => {
-    const updateVh = () => {
-      setVh(window.innerHeight);
-    };
-
-    updateVh();
-    window.addEventListener('resize', updateVh);
-    window.addEventListener('orientationchange', updateVh);
-
-    return () => {
-      window.removeEventListener('resize', updateVh);
-      window.removeEventListener('orientationchange', updateVh);
-    };
   }, []);
 
   /* ======================
@@ -76,7 +57,7 @@ export default function HeroSection() {
 
     video.muted = true;
     video.addEventListener('play', onPlay);
-    video.play().catch(() => {});
+    video.play().catch(() => { });
 
     return () => {
       video.removeEventListener('play', onPlay);
@@ -85,28 +66,25 @@ export default function HeroSection() {
   }, [isMobile]);
 
   return (
-    <section
-      id="home"
-      style={{ height: vh ? `${vh}px` : '100vh' }}
-      className="relative w-full overflow-hidden bg-black"
-    >
+    <section id="home" className="relative w-full h-screen overflow-hidden bg-black">
       {/* ======================
           BACKGROUND
       ====================== */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-        {/* MOBILE – GIF */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* MOBILE – GIF ONLY */}
         {isMobile && (
           <img
             src="/images/heroSection-Mobile.gif"
             alt="Özçelik İnşaat İstanbul Kentsel Dönüşüm ve Güvenilir Yapılar"
             className="
-              absolute inset-0
-              w-full h-full
-              object-cover
-              -translate-y-[38px]
-              scale-[1.05]
-            "
+    absolute inset-0 w-full h-full object-cover
+    -translate-y-[38px]
+    scale-[1.05]
+    md:translate-y-0 md:scale-100
+  "
           />
+
+
         )}
 
         {/* DESKTOP – HIDDEN VIDEO */}
@@ -127,17 +105,12 @@ export default function HeroSection() {
         {!isMobile && (
           <canvas
             ref={canvasRef}
-            className={`
-              absolute inset-0
-              w-full h-full
-              object-cover
-              transition-opacity duration-700
-              ${videoReady ? 'opacity-100' : 'opacity-0'}
-            `}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'
+              }`}
           />
         )}
 
-        {/* GRADIENT OVERLAY */}
+        {/* GRADIENT OVERLAY – ALT → ÜST */}
         <div
           className="
             absolute inset-0 z-[1]
@@ -162,6 +135,7 @@ export default function HeroSection() {
             İstanbul'da Güvenli, Modern ve Estetik Kentsel Dönüşüm Projeleri
           </p>
 
+          {/* CTA BUTTONS */}
           <div className="flex gap-4 justify-center flex-wrap">
             <a
               href="#projects"
