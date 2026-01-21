@@ -15,6 +15,7 @@ export const translations = {
       cta1: 'Projelerimizi Keşfedin',
       cta2: 'İletişime Geçin',
       badge: 'Modern Mimari & Güvenli Yapılar',
+      since: '<em>2005\'ten beri</em>',
     },
     about: {
       title: 'Hakkımızda',
@@ -109,7 +110,8 @@ export const translations = {
       subheading: 'We build solid structures with our local expertise and professional team.',
       cta1: 'Explore Our Projects',
       cta2: 'Get in Touch',
-      badge: 'Modern Architecture & Secure Structures',
+      badge: 'Modern Mimari & Secure Structures',
+      since: '<em>Since 2005</em>',
     },
     about: {
       title: 'About Us',

@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function HeroSection() {
+  const { t } = useLanguage();
+
   const [isMobile, setIsMobile] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
@@ -38,32 +41,15 @@ export default function HeroSection() {
     const render = () => {
       if (video.paused || video.ended) return;
 
-      // Canvas boyutunu ekran boyutuna eşitle
-      const containerWidth = canvas.parentElement?.clientWidth || window.innerWidth;
-      const containerHeight = canvas.parentElement?.clientHeight || window.innerHeight;
-      
-      if (canvas.width !== containerWidth || canvas.height !== containerHeight) {
-        canvas.width = containerWidth;
-        canvas.height = containerHeight;
+      if (
+        canvas.width !== video.videoWidth ||
+        canvas.height !== video.videoHeight
+      ) {
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
       }
 
-      // Video'nun aspect ratio'sunu koru ve ekranı kapla (object-cover gibi)
-      const videoAspect = video.videoWidth / video.videoHeight;
-      const canvasAspect = canvas.width / canvas.height;
-
-      let sx = 0, sy = 0, sWidth = video.videoWidth, sHeight = video.videoHeight;
-
-      if (videoAspect > canvasAspect) {
-        // Video daha geniş - yanlardaki fazlalığı kes
-        sWidth = video.videoHeight * canvasAspect;
-        sx = (video.videoWidth - sWidth) / 2;
-      } else {
-        // Video daha dar - üst/alttaki fazlalığı kes
-        sHeight = video.videoWidth / canvasAspect;
-        sy = (video.videoHeight - sHeight) / 2;
-      }
-
-      ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       rafId = requestAnimationFrame(render);
     };
 
@@ -72,44 +58,37 @@ export default function HeroSection() {
       render();
     };
 
-    const handleResize = () => {
-      if (canvas && canvas.parentElement) {
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.parentElement.clientHeight;
-      }
-    };
-
     video.muted = true;
     video.addEventListener('play', onPlay);
-    window.addEventListener('resize', handleResize);
     video.play().catch(() => { });
 
     return () => {
       video.removeEventListener('play', onPlay);
-      window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
 
   return (
-    <section id="home" className="relative w-full h-screen overflow-hidden bg-black">
+    <section
+      id="home"
+      className="relative w-full h-screen overflow-hidden bg-black"
+      aria-label="Özçelik İnşaat Ana Tanıtım Alanı"
+    >
       {/* ======================
           BACKGROUND
       ====================== */}
-      <div className="absolute w-full h-screen inset-0 z-0 overflow-hidden pointer-events-none">
-        {/* MOBILE – GIF ONLY */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        {/* MOBILE – GIF */}
         {isMobile && (
           <img
             src="/images/heroSection-Mobile.gif"
-            alt="Özçelik İnşaat İstanbul Kentsel Dönüşüm ve Güvenilir Yapılar"
-            className="absolute inset-0 w-full h-full object-cover min-w-full min-h-full scale-110"
-            style={{
-              objectPosition: 'center center'
-            }}
+            alt="Özçelik İnşaat İstanbul kentsel dönüşüm projeleri"
+            className="absolute inset-0 w-full h-full object-cover -translate-y-[38px] scale-[1.05]"
+            loading="eager"
           />
         )}
 
-        {/* DESKTOP – HIDDEN VIDEO */}
+        {/* DESKTOP – VIDEO (HIDDEN, SEO SAFE) */}
         {!isMobile && (
           <video
             ref={videoRef}
@@ -119,7 +98,7 @@ export default function HeroSection() {
             preload="auto"
             className="hidden"
             src="/images/heroSection.mp4"
-            title="Özçelik İnşaat Kurumsal Tanıtım Videosu"
+            aria-hidden="true"
           />
         )}
 
@@ -127,22 +106,14 @@ export default function HeroSection() {
         {!isMobile && (
           <canvas
             ref={canvasRef}
-            className={`absolute inset-0 w-full h-full transition-opacity duration-700 ${
-              videoReady ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'
+              }`}
+            aria-hidden="true"
           />
         )}
 
-        {/* GRADIENT OVERLAY – ALT → ÜST */}
-        <div
-          className="
-            absolute inset-0 z-[1]
-            bg-gradient-to-t
-            from-black/80
-            via-black/40
-            to-black/10
-          "
-        />
+        {/* GRADIENT OVERLAY */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
       </div>
 
       {/* ======================
@@ -150,38 +121,40 @@ export default function HeroSection() {
       ====================== */}
       <div className="relative z-10 flex h-full items-center justify-center text-center px-6">
         <div>
-          <h1 className="text-white text-[8vw] md:text-6xl font-black leading-tight tracking-tight uppercase drop-shadow-2xl">
-            ÖZÇELİK İNŞAAT
-          </h1>
+          {/* SINCE – ITALIC (SEO + SEMANTIC) */}
+          <p
+            className="mt-4 text-gray-300 italic"
+            dangerouslySetInnerHTML={{ __html: t.hero.since }}
+          />
 
+          {/* H1 – SEO PRIMARY */}
+          <h1 className="text-white text-[8vw] md:text-6xl font-black leading-tight tracking-tight uppercase drop-shadow-2xl">
+            {t.hero.headline}
+          </h1>
+          {/* BADGE */}
+          <span className="inline-block mb-4 text-md tracking-widest uppercase text-orange-400">
+            {t.hero.badge}
+          </span>
+
+          {/* SUBHEADING */}
           <p className="text-gray-200 text-base md:text-xl max-w-2xl mx-auto mt-6 mb-10">
-            İstanbul'da Güvenli, Modern ve Estetik Kentsel Dönüşüm Projeleri
+            {t.hero.subheading}
           </p>
 
           {/* CTA BUTTONS */}
           <div className="flex gap-4 justify-center flex-wrap">
             <a
               href="#projects"
-              className="
-                px-8 py-3 bg-[#ff6b00] hover:bg-[#e66000]
-                text-white font-bold uppercase tracking-wider text-xs
-                rounded-full transition-all duration-300
-                shadow-lg hover:shadow-orange-500/30 active:scale-95
-              "
+              className="px-8 py-3 bg-[#ff6b00] hover:bg-[#e66000] text-white font-bold uppercase tracking-wider text-xs rounded-full transition-all duration-300 shadow-lg hover:shadow-orange-500/30 active:scale-95"
             >
-              Projelerimiz
+              {t.hero.cta1}
             </a>
 
             <a
               href="#contact"
-              className="
-                px-8 py-3 border-2 border-white/80
-                text-white font-bold uppercase tracking-wider text-xs
-                rounded-full hover:bg-white hover:text-black
-                transition-all duration-300 active:scale-95
-              "
+              className="px-8 py-3 border-2 border-white/80 text-white font-bold uppercase tracking-wider text-xs rounded-full hover:bg-white hover:text-black transition-all duration-300 active:scale-95"
             >
-              İletişim
+              {t.hero.cta2}
             </a>
           </div>
         </div>
@@ -192,11 +165,8 @@ export default function HeroSection() {
       ====================== */}
       <a
         href="#about"
-        className="
-          absolute bottom-10 left-1/2 -translate-x-1/2 z-20
-          flex flex-col items-center
-          opacity-80 hover:opacity-100 transition-opacity
-        "
+        aria-label="Hakkımızda bölümüne kaydır"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center opacity-80 hover:opacity-100 transition-opacity"
       >
         <span className="w-6 h-6 border-b-2 border-r-2 border-white rotate-45 animate-bounce" />
       </a>
