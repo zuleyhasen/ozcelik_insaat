@@ -38,15 +38,32 @@ export default function HeroSection() {
     const render = () => {
       if (video.paused || video.ended) return;
 
-      if (
-        canvas.width !== video.videoWidth ||
-        canvas.height !== video.videoHeight
-      ) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
+      // Canvas boyutunu ekran boyutuna eşitle
+      const containerWidth = canvas.parentElement?.clientWidth || window.innerWidth;
+      const containerHeight = canvas.parentElement?.clientHeight || window.innerHeight;
+      
+      if (canvas.width !== containerWidth || canvas.height !== containerHeight) {
+        canvas.width = containerWidth;
+        canvas.height = containerHeight;
       }
 
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      // Video'nun aspect ratio'sunu koru ve ekranı kapla (object-cover gibi)
+      const videoAspect = video.videoWidth / video.videoHeight;
+      const canvasAspect = canvas.width / canvas.height;
+
+      let sx = 0, sy = 0, sWidth = video.videoWidth, sHeight = video.videoHeight;
+
+      if (videoAspect > canvasAspect) {
+        // Video daha geniş - yanlardaki fazlalığı kes
+        sWidth = video.videoHeight * canvasAspect;
+        sx = (video.videoWidth - sWidth) / 2;
+      } else {
+        // Video daha dar - üst/alttaki fazlalığı kes
+        sHeight = video.videoWidth / canvasAspect;
+        sy = (video.videoHeight - sHeight) / 2;
+      }
+
+      ctx.drawImage(video, sx, sy, sWidth, sHeight, 0, 0, canvas.width, canvas.height);
       rafId = requestAnimationFrame(render);
     };
 
@@ -55,12 +72,21 @@ export default function HeroSection() {
       render();
     };
 
+    const handleResize = () => {
+      if (canvas && canvas.parentElement) {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+      }
+    };
+
     video.muted = true;
     video.addEventListener('play', onPlay);
+    window.addEventListener('resize', handleResize);
     video.play().catch(() => { });
 
     return () => {
       video.removeEventListener('play', onPlay);
+      window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
@@ -70,21 +96,17 @@ export default function HeroSection() {
       {/* ======================
           BACKGROUND
       ====================== */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      <div className="absolute w-full h-screen inset-0 z-0 overflow-hidden pointer-events-none">
         {/* MOBILE – GIF ONLY */}
         {isMobile && (
           <img
             src="/images/heroSection-Mobile.gif"
             alt="Özçelik İnşaat İstanbul Kentsel Dönüşüm ve Güvenilir Yapılar"
-            className="
-    absolute inset-0 w-full h-full object-cover
-    -translate-y-[38px]
-    scale-[1.05]
-    md:translate-y-0 md:scale-100
-  "
+            className="absolute inset-0 w-full h-full object-cover min-w-full min-h-full scale-110"
+            style={{
+              objectPosition: 'center center'
+            }}
           />
-
-
         )}
 
         {/* DESKTOP – HIDDEN VIDEO */}
@@ -105,8 +127,9 @@ export default function HeroSection() {
         {!isMobile && (
           <canvas
             ref={canvasRef}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${videoReady ? 'opacity-100' : 'opacity-0'
-              }`}
+            className={`absolute inset-0 w-full h-full transition-opacity duration-700 ${
+              videoReady ? 'opacity-100' : 'opacity-0'
+            }`}
           />
         )}
 
