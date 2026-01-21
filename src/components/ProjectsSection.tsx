@@ -57,7 +57,7 @@ function ProjectCard({ project, onClick, t, getProjectTitle, getProjectLocation 
               <div key={index} className="flex-[0_0_100%] min-w-0 h-full relative">
                 <img
                   src={img}
-                  alt={`${getProjectTitle(project)} - ${index + 1}`}
+                  alt={`${getProjectTitle(project)} - Özçelik İnşaat Proje Görseli ${index + 1}`}
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
@@ -157,7 +157,7 @@ export function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-20 md:py-32 bg-secondary/30">
+    <section id="projeler" className="py-20 md:py-32 bg-secondary/30">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -285,57 +285,70 @@ export function ProjectsSection() {
                     )}
                   </div>
 
-                  {/* Küçük Resimler (Thumbnails) */}
-                  <div className="bg-white p-4 border-t border-border flex gap-2 overflow-x-auto scrollbar-hide">
-                    {selectedProject.gallery.map((img, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setSelectedImageIndex(idx)}
-                        className={`relative flex-shrink-0 w-20 h-20 rounded-md overflow-hidden border-2 transition-all ${
-                          idx === selectedImageIndex ? 'border-accent scale-105 shadow-md' : 'border-transparent opacity-60 hover:opacity-100'
-                        }`}
-                      >
-                        <img src={img} alt="" className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
+                  {/* Küçük Görseller (Thumbnails) */}
+                  {selectedProject.gallery.length > 1 && (
+                    <div className="p-4 bg-white border-t border-border overflow-x-auto">
+                      <div className="flex gap-2 justify-center">
+                        {selectedProject.gallery.map((img, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setSelectedImageIndex(idx)}
+                            className={`relative w-16 h-16 rounded-md overflow-hidden border-2 transition-all flex-shrink-0 ${
+                              selectedImageIndex === idx ? 'border-accent scale-105 shadow-sm' : 'border-transparent opacity-60 hover:opacity-100'
+                            }`}
+                          >
+                            <img src={img} alt="" className="w-full h-full object-cover" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                <div className="w-full md:w-2/5 lg:w-1/3 p-8 flex flex-col bg-card">
-                  <div className="flex justify-between items-start mb-6">
+                {/* Detay Paneli */}
+                <div className="w-full md:w-2/5 lg:w-1/3 p-8 overflow-y-auto bg-card">
+                  <div className="hidden md:flex justify-end mb-6">
                     <button
                       onClick={() => setSelectedProject(null)}
-                      className="hidden md:block p-2 hover:bg-secondary rounded-full transition-colors"
+                      className="p-2 hover:bg-secondary rounded-full transition-colors"
                     >
                       <X className="w-6 h-6" />
                     </button>
-                    <div className="bg-accent/10 text-accent px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
-                      {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
-                    </div>
                   </div>
 
-                  <h2 className="text-3xl font-bold mb-4 text-foreground leading-tight">
-                    {getProjectTitle(selectedProject)}
-                  </h2>
-
-                  <div className="space-y-6 mb-8">
+                  <div className="space-y-8">
                     <div>
-                      <h4 className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">
-                        {t.projects.location}
-                      </h4>
-                      <p className="text-foreground flex items-center">
-                        <span className="w-2 h-2 bg-accent rounded-full mr-2" />
-                        {selectedProject.detailedLocation}
+                      <div className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-xs font-bold uppercase tracking-wider mb-4">
+                        {selectedProject.status === 'completed' ? t.projects.completed : t.projects.ongoing}
+                      </div>
+                      <h2 className="text-3xl font-black uppercase tracking-tight mb-2">
+                        {getProjectTitle(selectedProject)}
+                      </h2>
+                      <div className="flex items-center text-muted-foreground">
+                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        </svg>
+                        {getProjectLocation(selectedProject)}
+                      </div>
+                    </div>
+
+                    <div className="h-px bg-border" />
+
+                    <div className="space-y-4">
+                      <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Proje Detayları</h4>
+                      <p className="text-foreground/80 leading-relaxed">
+                        {language === 'tr' ? selectedProject.descriptionTr : selectedProject.descriptionEn}
                       </p>
                     </div>
-                  </div>
 
-                  <div className="mt-auto pt-6 border-t border-border flex justify-between items-center">
-                    <div className="text-sm font-medium text-muted-foreground">
-                      {selectedImageIndex + 1} / {selectedProject.gallery.length}
-                    </div>
-                    <div className="text-[10px] font-bold tracking-tighter text-muted-foreground/30 uppercase">
-                      Özçelik İnşaat
+                    <div className="pt-6">
+                      <a
+                        href="#contact"
+                        onClick={() => setSelectedProject(null)}
+                        className="block w-full py-4 bg-primary text-primary-foreground text-center font-bold uppercase tracking-widest rounded-lg hover:bg-primary/90 transition-colors"
+                      >
+                        {t.nav.contactBtn}
+                      </a>
                     </div>
                   </div>
                 </div>

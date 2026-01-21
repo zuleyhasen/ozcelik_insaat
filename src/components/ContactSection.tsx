@@ -47,7 +47,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-white">
+    <section id="iletisim" className="py-20 md:py-32 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           className="max-w-6xl mx-auto"
@@ -108,7 +108,7 @@ export function ContactSection() {
               className="relative w-full min-h-[400px] overflow-hidden border bg-zinc-100 rounded-lg shadow-sm"
             >
               <iframe
-                title="Özçelik Yapı Konum"
+                title="Özçelik İnşaat İstanbul Ofis Konumu"
                 src={embedUrl}
                 className="w-full h-full"
                 loading="lazy"

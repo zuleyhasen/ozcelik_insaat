@@ -31,7 +31,8 @@ export function ServicesSection() {
       descTr: 'Modern ve konforlu konut projelerimiz, en yüksek kalite standartlarına uygun olarak inşa edilmektedir. Yaşam alanlarınızı güven ve estetikle buluşturuyoruz.',
       descEn: 'Our modern and comfortable residential projects are built to the highest quality standards. We bring trust and aesthetics to your living spaces.',
       icon: BuildingIcon,
-      image: '/images/services/residential.webp'
+      image: '/images/services/residential.webp',
+      alt: 'Özçelik İnşaat Modern Konut İnşaatı Projesi'
     },
     {
       titleTr: 'Ticari Projeler',
@@ -39,7 +40,8 @@ export function ServicesSection() {
       descTr: 'İş merkezleri ve ticari binaları, işlevsellik ve estetik dengesi ile tasarlayıp inşa ediyoruz. Modern iş dünyasının ihtiyaçlarına profesyonel çözümler sunuyoruz.',
       descEn: 'We design and build commercial centers and office buildings with functionality and aesthetic balance. We offer professional solutions for the needs of the modern business world.',
       icon: SafetyIcon,
-      image: '/images/services/commercial.webp'
+      image: '/images/services/commercial.webp',
+      alt: 'Özçelik İnşaat Ticari Bina ve İş Merkezi Projeleri'
     },
     {
       titleTr: 'Kentsel Dönüşüm',
@@ -47,12 +49,13 @@ export function ServicesSection() {
       descTr: 'Kentsel dönüşüm projeleri kapsamında apartman inşaatları, modern mimari çizgileri ve kaliteli malzeme kullanımıyla estetik ve konforu bir arada sunmaktadır. Eski yapıları güvenli geleceğe taşıyoruz.',
       descEn: 'In our urban transformation projects, we build apartments with modern architectural lines and high-quality materials, combining aesthetics and comfort. We carry old structures to a safe future.',
       icon: QualityIcon,
-      image: '/images/services/urban.webp'
+      image: '/images/services/urban.webp',
+      alt: 'İstanbul Kentsel Dönüşüm Firması Özçelik İnşaat'
     },
   ];
 
   return (
-    <section id="services" className="py-20 md:py-32 bg-zinc-50 overflow-hidden">
+    <section id="hizmetlerimiz" className="py-20 md:py-32 bg-zinc-50 overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -68,8 +71,8 @@ export function ServicesSection() {
             <div className="h-1.5 w-24 bg-primary mx-auto mb-6 rounded-full" />
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-medium">
               {language === 'tr'
-                ? 'Özçelik İnşaat olarak, her projede mükemmelliği hedefleyen profesyonel çözümler sunuyoruz.'
-                : 'As Özçelik Construction, we offer professional solutions aiming for excellence in every project.'}
+                ? 'Özçelik İnşaat olarak, İstanbul genelinde kentsel dönüşüm ve inşaat projelerinde mükemmelliği hedefleyen profesyonel çözümler sunuyoruz.'
+                : 'As Özçelik Construction, we offer professional solutions aiming for excellence in urban transformation and construction projects across Istanbul.'}
             </p>
           </motion.div>
 
@@ -91,7 +94,7 @@ export function ServicesSection() {
                       <div className="relative rounded-2xl overflow-hidden shadow-2xl aspect-[4/3]">
                         <img
                           src={service.image}
-                          alt={service.titleTr}
+                          alt={service.alt}
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         />
                       </div>

@@ -66,7 +66,7 @@ export default function HeroSection() {
   }, [isMobile]);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black">
+    <section id="home" className="relative w-full h-screen overflow-hidden bg-black">
       {/* ======================
           BACKGROUND
       ====================== */}
@@ -75,7 +75,7 @@ export default function HeroSection() {
         {isMobile && (
           <img
             src="/images/heroSection-Mobile.gif"
-            alt=""
+            alt="Özçelik İnşaat İstanbul Kentsel Dönüşüm ve Güvenilir Yapılar"
             className="
     absolute inset-0 w-full h-full object-cover
     -translate-y-[38px]
@@ -97,6 +97,7 @@ export default function HeroSection() {
             preload="auto"
             className="hidden"
             src="/images/heroSection.mp4"
+            title="Özçelik İnşaat Kurumsal Tanıtım Videosu"
           />
         )}
 
@@ -131,7 +132,7 @@ export default function HeroSection() {
           </h1>
 
           <p className="text-gray-200 text-base md:text-xl max-w-2xl mx-auto mt-6 mb-10">
-            Güvenli, modern ve estetik yapılar
+            İstanbul'da Güvenli, Modern ve Estetik Kentsel Dönüşüm Projeleri
           </p>
 
           {/* CTA BUTTONS */}

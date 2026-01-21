@@ -24,14 +24,14 @@ export function FoundationSection() {
   };
 
   const images = [
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-1.webp', span: 'col-span-2 row-span-2' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-2.webp', span: 'col-span-1 row-span-1' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-3.webp', span: 'col-span-1 row-span-1' },
-    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-4.webp', span: 'col-span-2 row-span-1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-1.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 1' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-2.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 2' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-3.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 3' },
+    { src: '/images/construction_photos/ozcelik-insaat-saglam-temel-4.webp', alt: 'Özçelik İnşaat Sağlam Temel Çalışması 4' },
   ];
 
   return (
-    <section id="foundation" className="py-20 md:py-32 bg-zinc-50 overflow-hidden">
+    <section id="saglam-temeller" className="py-20 md:py-32 bg-zinc-50 overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -69,6 +69,7 @@ export function FoundationSection() {
               >
                 <img
                   src={img.src}
+                  alt={img.alt}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />

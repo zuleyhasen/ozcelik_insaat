@@ -53,7 +53,7 @@ export function ApartmentGallerySection() {
   }, [selectedImageIndex, handleNext, handlePrev]);
 
   return (
-    <section id="apartmentGallery" className="py-20 bg-background overflow-hidden">
+    <section id="ornek-daire-galeri" className="py-20 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-black mb-4 uppercase tracking-tighter text-foreground">
@@ -85,7 +85,7 @@ export function ApartmentGallerySection() {
               >
                 <img
                   src={image}
-                  alt={`Gallery ${index + 1}`}
+                  alt={`Özçelik İnşaat Örnek Daire İç Mekan Görseli ${index + 1}`}
                   className="w-full h-full object-cover transition-all duration-500"
                 />
                 <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300" />
@@ -141,6 +141,7 @@ export function ApartmentGallerySection() {
                   <motion.img
                     key={selectedImageIndex}
                     src={apartmentImages[selectedImageIndex]}
+                    alt={`Özçelik İnşaat Örnek Daire Detay Görseli ${selectedImageIndex + 1}`}
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 1.05 }}

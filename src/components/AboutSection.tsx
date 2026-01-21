@@ -34,7 +34,7 @@ export function AboutSection() {
   };
 
   return (
-    <section id="about" className="py-20 md:py-32 bg-background overflow-hidden">
+    <section id="hakkimizda" className="py-20 md:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           variants={containerVariants}
@@ -89,7 +89,7 @@ export function AboutSection() {
             >
               <img
                 src="/images/about/about.webp"
-                alt="Modern Architecture"
+                alt="Özçelik İnşaat Modern Mimari ve Güvenilir Yapı Projeleri"
                 className="w-full h-[500px] object-cover"
               />
             </motion.div>
@@ -101,7 +101,7 @@ export function AboutSection() {
             >
               <img
                 src="/images/about/team.webp"
-                alt="Construction Team"
+                alt="Özçelik İnşaat Profesyonel İnşaat Ekibi"
                 className="w-full h-full object-cover"
               />
             </motion.div>

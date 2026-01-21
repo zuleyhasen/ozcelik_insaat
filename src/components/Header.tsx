@@ -9,11 +9,11 @@ export function Header() {
   const { t } = useLanguage();
 
   const menuItems = [
-    { label: t.nav.about, href: '#about', id: 'about' },
-    { label: t.nav.projects, href: '#projects', id: 'projects' },
-    { label: t.nav.apartmentGallery, href: '#apartmentGallery', id: 'apartmentGallery' },
-    { label: t.footer.services, href: '#services', id: 'services' },
-    { label: t.nav.contact, href: '#contact', id: 'contact' },
+    { label: t.nav.about, href: '#hakkimizda', id: 'about' },
+    { label: t.nav.projects, href: '#projeler', id: 'projects' },
+    { label: t.nav.apartmentGallery, href: '#ornek-daire-galeri', id: 'apartmentGallery' },
+    { label: t.footer.services, href: '#hizmetlerimiz', id: 'services' },
+    { label: t.nav.contact, href: '#iletisim', id: 'contact' },
   ];
 
   const socialLinks = [
@@ -34,7 +34,7 @@ export function Header() {
           >
             <img
               src="/images/logo.webp"
-              alt="ÖZÇELİK İNŞAAT"
+              alt="ÖZÇELİK İNŞAAT - İstanbul Kentsel Dönüşüm ve İnşaat Firması"
               className="h-12 md:h-16 w-auto object-contain brightness-110 contrast-110"
             />
           </motion.a>

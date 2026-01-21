@@ -5,6 +5,8 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Home from "./pages/Home";
+import { HelmetProvider } from 'react-helmet-async';
+
 function Router() {
   return (
     <Switch>
@@ -18,12 +20,14 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
+      <HelmetProvider>
         <LanguageProvider>
           <TooltipProvider>
             <Toaster />
             <Router />
           </TooltipProvider>
         </LanguageProvider>
+      </HelmetProvider>
     </ErrorBoundary>
   );
 }
